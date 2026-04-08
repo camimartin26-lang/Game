@@ -1,109 +1,300 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neubrutalismo UI</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neubrutalismo UI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body>
+  <body>
+    <!-- DECORACIÓN GLOBAL -->
+    <img src="assets/estrella.svg" alt="" class="star-deco star-1" />
+    <img src="assets/estrella.svg" alt="" class="star-deco star-2" />
+    <img src="assets/planeta.svg" alt="" class="planet-deco" />
 
-  <!-- DECORACIÓN -->
-  <img src="assets/estrella.svg" class="star star-1">
-  <img src="assets/estrella.svg" class="star star-2">
-  <img src="assets/planeta.svg" class="planet">
-
-  <!-- HERO -->
-  <header class="hero">
-    <h1>Neubrutalismo interactivo</h1>
-    <p>Quiz + Cards + Acordeón</p>
-  </header>
-
-  <main class="container">
-
-    <!-- QUIZ -->
-    <section class="section">
-
-      <div id="quizIntro">
-        <button id="startQuizBtn" class="btn">
-          <img src="assets/play.svg"> Empezar quiz
-        </button>
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-top">
+        <span class="hero-badge">Retro Modern UI</span>
+        <span class="hero-chip">Bold • Playful • Interactive</span>
       </div>
 
-      <div id="quizBox" class="hidden">
-        <h2 id="question"></h2>
-        <div id="answers"></div>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>Diseño web neubrutalista con energía visual</h1>
+          <p>
+            Una landing colorida con un quiz interactivo, cards verticales y un
+            acordeón horizontal real inspirado en interfaces modernas con vibra
+            retro.
+          </p>
 
-        <p id="error" class="hidden">
-          <img src="assets/rayo.svg"> Elegí una opción
-        </p>
+          <div class="hero-actions">
+            <a href="#quiz" class="btn-primary">Ver quiz</a>
+            <a href="#features" class="mini-btn hero-secondary">Explorar layout</a>
+          </div>
+        </div>
 
-        <div class="actions">
-          <button id="prevBtn" class="btn small hidden">Anterior</button>
-          <button id="nextBtn" class="btn">
-            Siguiente <img src="assets/flecha.svg">
-          </button>
+        <div class="hero-card">
+          <div class="hero-card-window">
+            <div class="window-bar">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <div class="hero-card-content">
+              <div class="sticker">UI</div>
+              <h3>Creative interface system</h3>
+              <p>
+                Bordes negros, bloques fuertes, tipografía bold y mucha
+                personalidad visual.
+              </p>
+
+              <div class="mini-pills">
+                <span>Quiz</span>
+                <span>Cards</span>
+                <span>Accordion</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </header>
 
-    </section>
+    <main class="container">
+      <!-- SECCIÓN 1: QUIZ -->
+      <section id="quiz" class="panel section quiz-section">
+        <div class="section-tag">01</div>
+        <h2>Quick Quiz</h2>
+        <p class="section-text">
+          Descubrí qué estilo visual conecta más con vos.
+        </p>
 
-    <!-- CARDS -->
-    <section class="cards">
+        <div class="quiz-shell">
+          <div id="quizIntro" class="quiz-intro">
+            <div class="intro-badge">3 preguntas</div>
+            <p>
+              Este quiz te muestra qué tipo de estética digital va más con tu
+              forma de comunicar y construir una experiencia.
+            </p>
 
-      <div class="card">
-        <img src="assets/blob.svg" class="blob">
-        <h3>Branding</h3>
-        <p>Identidad visual potente</p>
+            <button id="startQuizBtn" class="btn-primary start-btn">
+              <img src="assets/play.svg" alt="" class="icon-play" />
+              <span>Empezar quiz</span>
+            </button>
+          </div>
+
+          <div id="quizStepper" class="quiz-stepper hidden">
+            <div class="quiz-progress">
+              <div class="quiz-progress-top">
+                <span id="questionCounter">Pregunta 1 de 3</span>
+                <span id="progressPercent">33%</span>
+              </div>
+
+              <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+              </div>
+            </div>
+
+            <div id="quizCard" class="question-card step-question">
+              <h3 id="questionTitle"></h3>
+
+              <div id="answersContainer" class="answers-container"></div>
+
+              <p id="quizError" class="quiz-error hidden">
+                <img src="assets/rayo.svg" alt="" class="icon-ray" />
+                <span>Elegí una opción antes de continuar.</span>
+              </p>
+            </div>
+
+            <div class="quiz-actions">
+              <button id="prevQuestionBtn" class="mini-btn secondary-btn hidden">
+                Anterior
+              </button>
+
+              <button id="nextQuestionBtn" class="btn-primary next-btn">
+                <span>Siguiente</span>
+                <img src="assets/flecha.svg" alt="" class="icon-arrow" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: CARDS -->
+      <section id="features" class="panel section vertical-cards-section">
+        <div class="section-tag">02</div>
+        <h2>Cards verticales</h2>
+        <p class="section-text">
+          Una grilla visual para mostrar servicios, categorías o capacidades de
+          una marca.
+        </p>
+
+        <div class="vertical-cards">
+          <article class="v-card">
+            <img src="assets/blob.svg" alt="" class="blob-bg" />
+            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-1" />
+
+            <div class="v-card-top">
+              <span class="card-badge">Brand</span>
+              <div class="v-card-icon">✦</div>
+            </div>
+
+            <h3>Branding</h3>
+            <p>
+              Identidades visuales frescas, memorables y listas para destacar.
+            </p>
+
+            <button class="mini-btn">Explorar</button>
+          </article>
+
+          <article class="v-card">
+            <img src="assets/blob.svg" alt="" class="blob-bg" />
+            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-2" />
+
+            <div class="v-card-top">
+              <span class="card-badge">UI</span>
+              <div class="v-card-icon">☻</div>
+            </div>
+
+            <h3>UI Design</h3>
+            <p>
+              Interfaces con personalidad, usabilidad y una estética potente.
+            </p>
+
+            <button class="mini-btn">Explorar</button>
+          </article>
+
+          <article class="v-card">
+            <img src="assets/blob.svg" alt="" class="blob-bg" />
+            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-3" />
+
+            <div class="v-card-top">
+              <span class="card-badge">Direction</span>
+              <div class="v-card-icon">⚡</div>
+            </div>
+
+            <h3>Creative Direction</h3>
+            <p>
+              Conceptos visuales para marcas que buscan una energía distinta.
+            </p>
+
+            <button class="mini-btn">Explorar</button>
+          </article>
+
+          <article class="v-card">
+            <img src="assets/blob.svg" alt="" class="blob-bg" />
+            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-4" />
+
+            <div class="v-card-top">
+              <span class="card-badge">Web</span>
+              <div class="v-card-icon">★</div>
+            </div>
+
+            <h3>Web Experiences</h3>
+            <p>
+              Sitios llamativos, modernos y con estructura clara para convertir.
+            </p>
+
+            <button class="mini-btn">Explorar</button>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: ACORDEÓN HORIZONTAL -->
+      <section class="panel section accordion-section">
+        <div class="section-tag">03</div>
+        <h2>Acordeón horizontal</h2>
+        <p class="section-text">
+          Paneles laterales que se expanden al hacer click para revelar más
+          contenido.
+        </p>
+
+        <div class="horizontal-accordion" id="horizontalAccordion">
+          <article class="h-accordion-item active" data-index="0">
+            <button class="h-accordion-trigger" type="button">
+              <span class="h-accordion-number">01</span>
+              <span class="h-accordion-label">Concepto</span>
+              <img src="assets/flecha.svg" alt="" class="accordion-arrow" />
+            </button>
+
+            <div class="h-accordion-panel">
+              <div class="panel-inner">
+                <span class="panel-pill">Base visual</span>
+                <h3>Qué hace especial al neubrutalismo</h3>
+                <p>
+                  Mezcla colores fuertes, bordes negros, bloques grandes y una
+                  estética simple pero con muchísimo carácter.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="h-accordion-item" data-index="1">
+            <button class="h-accordion-trigger" type="button">
+              <span class="h-accordion-number">02</span>
+              <span class="h-accordion-label">Paleta</span>
+              <img src="assets/flecha.svg" alt="" class="accordion-arrow" />
+            </button>
+
+            <div class="h-accordion-panel">
+              <div class="panel-inner">
+                <span class="panel-pill">Color system</span>
+                <h3>Colores con contraste inmediato</h3>
+                <p>
+                  Amarillo, rosa, turquesa, lila y blanco ayudan a construir una
+                  interfaz con presencia y ritmo visual muy rápido.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="h-accordion-item" data-index="2">
+            <button class="h-accordion-trigger" type="button">
+              <span class="h-accordion-number">03</span>
+              <span class="h-accordion-label">Uso ideal</span>
+              <img src="assets/flecha.svg" alt="" class="accordion-arrow" />
+            </button>
+
+            <div class="h-accordion-panel">
+              <div class="panel-inner">
+                <span class="panel-pill">Best fit</span>
+                <h3>Cuándo usar este estilo</h3>
+                <p>
+                  Funciona muy bien para portfolios, productos creativos,
+                  landings visuales y marcas que quieren verse distintas y
+                  memorables.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- MODAL RESULTADO -->
+    <div id="quizModal" class="modal hidden">
+      <div id="modalBackdrop" class="modal-backdrop"></div>
+
+      <div class="modal-card">
+        <button id="closeModalBtn" class="modal-close" aria-label="Cerrar">
+          ×
+        </button>
+
+        <div class="modal-badge">Resultado</div>
+        <h3 id="modalResultTitle"></h3>
+        <p id="modalResultText"></p>
+
+        <div class="modal-actions">
+          <button id="restartQuizBtn" class="btn-primary">
+            Empezar de nuevo
+          </button>
+          <button id="closeResultBtn" class="mini-btn">Cerrar</button>
+        </div>
       </div>
-
-      <div class="card">
-        <img src="assets/blob.svg" class="blob">
-        <h3>UI Design</h3>
-        <p>Interfaces con personalidad</p>
-      </div>
-
-      <div class="card">
-        <img src="assets/blob.svg" class="blob">
-        <h3>Creative</h3>
-        <p>Conceptos visuales</p>
-      </div>
-
-    </section>
-
-    <!-- ACORDEÓN -->
-    <section class="accordion">
-
-      <div class="item active">
-        <button>Concepto</button>
-        <div class="content">Diseño con impacto visual fuerte</div>
-      </div>
-
-      <div class="item">
-        <button>Paleta</button>
-        <div class="content">Colores vibrantes y contraste</div>
-      </div>
-
-      <div class="item">
-        <button>Uso</button>
-        <div class="content">Webs creativas y modernas</div>
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- MODAL -->
-  <div id="modal" class="hidden">
-    <div class="overlay"></div>
-    <div class="modal-box">
-      <h2 id="resultTitle"></h2>
-      <p id="resultText"></p>
-      <button id="restartBtn" class="btn">Reiniciar</button>
     </div>
-  </div>
 
-<script src="app.js"></script>
-</body>
-</html>
+    <script src="app.js"></script>
+  </body>
+                                               </html>
