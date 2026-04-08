@@ -52,6 +52,7 @@ let currentQuestionIndex = 0;
 let selectedAnswer = null;
 let userAnswers = [];
 
+/* QUIZ */
 function startQuiz() {
   currentQuestionIndex = 0;
   selectedAnswer = null;
@@ -74,9 +75,7 @@ function updateProgress() {
 function updateButtons() {
   prevQuestionBtn.classList.toggle("hidden", currentQuestionIndex === 0);
   nextQuestionBtn.querySelector("span").textContent =
-    currentQuestionIndex === quizData.length - 1
-      ? "Ver resultado"
-      : "Siguiente";
+    currentQuestionIndex === quizData.length - 1 ? "Ver resultado" : "Siguiente";
 }
 
 function renderQuestion() {
@@ -210,12 +209,159 @@ function setupAccordion() {
   });
 }
 
+/* FEATURE POPUPS */
+const featureOverlay = document.getElementById("featureOverlay");
+const featureBackdrop = featureOverlay.querySelector(".feature-backdrop");
+const featureOpenButtons = document.querySelectorAll(".feature-open-btn");
+const featureCloseButtons = document.querySelectorAll(".feature-close-btn");
+const featureModals = document.querySelectorAll(".feature-modal");
+
+function openFeatureModal(id) {
+  featureOverlay.classList.remove("hidden");
+  featureModals.forEach((modal) => modal.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function closeFeatureModal() {
+  featureOverlay.classList.add("hidden");
+  featureModals.forEach((modal) => modal.classList.add("hidden"));
+  document.body.style.overflow = "";
+  stopGame();
+}
+
+featureOpenButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    openFeatureModal(button.dataset.modal);
+  });
+});
+
+featureCloseButtons.forEach((button) => {
+  button.addEventListener("click", closeFeatureModal);
+});
+
+featureBackdrop.addEventListener("click", closeFeatureModal);
+
+/* INNER ACCORDION */
+const innerAccordionItems = document.querySelectorAll(".inner-accordion-item");
+
+innerAccordionItems.forEach((item) => {
+  const trigger = item.querySelector(".inner-accordion-trigger");
+
+  trigger.addEventListener("click", () => {
+    const isActive = item.classList.contains("active");
+
+    innerAccordionItems.forEach((el) => el.classList.remove("active"));
+
+    if (!isActive) {
+      item.classList.add("active");
+    }
+  });
+});
+
+/* MINI GAME */
+const startGameBtn = document.getElementById("startGameBtn");
+const gameTarget = document.getElementById("gameTarget");
+const gameArea = document.getElementById("gameArea");
+const gameScore = document.getElementById("gameScore");
+const gameTimer = document.getElementById("gameTimer");
+
+let score = 0;
+let timeLeft = 10;
+let gameInterval = null;
+let gameRunning = false;
+
+function moveTarget() {
+  const areaRect = gameArea.getBoundingClientRect();
+  const targetSize = 56;
+  const maxX = areaRect.width - targetSize - 8;
+  const maxY = areaRect.height - targetSize - 8;
+
+  const randomX = Math.max(0, Math.floor(Math.random() * maxX));
+  const randomY = Math.max(0, Math.floor(Math.random() * maxY));
+
+  gameTarget.style.left = `${randomX}px`;
+  gameTarget.style.top = `${randomY}px`;
+}
+
+function startGame() {
+  score = 0;
+  timeLeft = 10;
+  gameRunning = true;
+  gameScore.textContent = `Puntos: ${score}`;
+  gameTimer.textContent = `Tiempo: ${timeLeft}`;
+  gameTarget.classList.remove("hidden");
+  moveTarget();
+
+  clearInterval(gameInterval);
+  gameInterval = setInterval(() => {
+    timeLeft -= 1;
+    gameTimer.textContent = `Tiempo: ${timeLeft}`;
+
+    if (timeLeft <= 0) {
+      stopGame();
+      gameTimer.textContent = `Tiempo: 0`;
+      alert(`Juego terminado. Tu puntaje fue: ${score}`);
+    }
+  }, 1000);
+}
+
+function stopGame() {
+  gameRunning = false;
+  clearInterval(gameInterval);
+  gameTarget.classList.add("hidden");
+}
+
+startGameBtn.addEventListener("click", startGame);
+
+gameTarget.addEventListener("click", () => {
+  if (!gameRunning) return;
+  score += 1;
+  gameScore.textContent = `Puntos: ${score}`;
+  moveTarget();
+});
+
+/* MINI GALLERY */
+const miniGalleryImages = [
+  "images/IMG-20260408-WA0001.jpg",
+  "images/IMG-20260408-WA0002.jpg",
+  "images/IMG-20260408-WA0003.jpg",
+  "images/IMG-20260408-WA0004.jpg",
+];
+
+let miniGalleryIndex = 0;
+
+const miniGalleryImage = document.getElementById("miniGalleryImage");
+const miniPrevBtn = document.getElementById("miniPrevBtn");
+const miniNextBtn = document.getElementById("miniNextBtn");
+
+function updateMiniGallery() {
+  miniGalleryImage.src = miniGalleryImages[miniGalleryIndex];
+}
+
+miniPrevBtn.addEventListener("click", () => {
+  miniGalleryIndex =
+    (miniGalleryIndex - 1 + miniGalleryImages.length) % miniGalleryImages.length;
+  updateMiniGallery();
+});
+
+miniNextBtn.addEventListener("click", () => {
+  miniGalleryIndex = (miniGalleryIndex + 1) % miniGalleryImages.length;
+  updateMiniGallery();
+});
+
+/* KEYBOARD */
 function setupKeyboardSupport() {
   document.addEventListener("keydown", (event) => {
-    const isModalOpen = !quizModal.classList.contains("hidden");
+    const isQuizModalOpen = !quizModal.classList.contains("hidden");
+    const isFeatureOpen = !featureOverlay.classList.contains("hidden");
 
-    if (event.key === "Escape" && isModalOpen) {
+    if (event.key === "Escape" && isQuizModalOpen) {
       closeModal();
+    }
+
+    if (event.key === "Escape" && isFeatureOpen) {
+      closeFeatureModal();
     }
   });
 }
