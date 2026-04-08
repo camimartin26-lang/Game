@@ -1,189 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neubrutalist UI Demo</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="page-decoration deco-star star-1"></div>
-    <div class="page-decoration deco-star star-2"></div>
-    <div class="page-decoration deco-dot dot-1"></div>
-    <div class="page-decoration deco-dot dot-2"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neubrutalismo UI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
 
-    <header class="hero">
-      <div class="hero-badge">Retro Modern UI</div>
-      <h1>Diseño web estilo neubrutalista</h1>
-      <p>
-        Una landing con 3 secciones: quiz, cards verticales y acordeón
-        horizontal.
-      </p>
-    </header>
+<body>
 
-    <main class="container">
-      <!-- SECCIÓN 1 -->
-      <section class="panel section quiz-section">
-        <div class="section-tag">01</div>
-        <h2>Quick Quiz</h2>
-        <p class="section-text">
-          Descubrí qué estilo visual conecta más con vos.
-        </p>
+  <!-- DECORACIÓN -->
+  <img src="assets/estrella.svg" class="star star-1">
+  <img src="assets/estrella.svg" class="star star-2">
+  <img src="assets/planeta.svg" class="planet">
 
-        <div class="quiz-shell">
-          <div id="quizIntro" class="quiz-intro">
-            <p>
-              Este quiz tiene 3 preguntas rápidas sobre tus preferencias
-              visuales.
-            </p>
-            <button id="startQuizBtn" class="btn-primary">Empezar quiz</button>
-          </div>
+  <!-- HERO -->
+  <header class="hero">
+    <h1>Neubrutalismo interactivo</h1>
+    <p>Quiz + Cards + Acordeón</p>
+  </header>
 
-          <div id="quizStepper" class="quiz-stepper hidden">
-            <div class="quiz-progress">
-              <div class="quiz-progress-top">
-                <span id="questionCounter">Pregunta 1 de 3</span>
-                <span id="progressPercent">33%</span>
-              </div>
-              <div class="progress-bar">
-                <div id="progressFill" class="progress-fill"></div>
-              </div>
-            </div>
+  <main class="container">
 
-            <div class="question-card step-question">
-              <h3 id="questionTitle"></h3>
-              <div id="answersContainer" class="answers-container"></div>
-            </div>
+    <!-- QUIZ -->
+    <section class="section">
 
-            <div class="quiz-actions">
-              <button id="nextQuestionBtn" class="btn-primary">
-                Siguiente
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECCIÓN 2 -->
-      <section class="panel section vertical-cards-section">
-        <div class="section-tag">02</div>
-        <h2>Cards verticales</h2>
-        <p class="section-text">
-          Una grilla con tarjetas visuales, perfectas para servicios, features o
-          proyectos.
-        </p>
-
-        <div class="vertical-cards">
-          <article class="v-card">
-            <div class="v-card-icon">✦</div>
-            <h3>Branding</h3>
-            <p>
-              Identidades visuales frescas, memorables y listas para destacar.
-            </p>
-            <button class="mini-btn">Explorar</button>
-          </article>
-
-          <article class="v-card">
-            <div class="v-card-icon">☻</div>
-            <h3>UI Design</h3>
-            <p>
-              Interfaces con personalidad, usabilidad y una estética potente.
-            </p>
-            <button class="mini-btn">Explorar</button>
-          </article>
-
-          <article class="v-card">
-            <div class="v-card-icon">⚡</div>
-            <h3>Creative Direction</h3>
-            <p>
-              Conceptos visuales para marcas que buscan una energía distinta.
-            </p>
-            <button class="mini-btn">Explorar</button>
-          </article>
-
-          <article class="v-card">
-            <div class="v-card-icon">★</div>
-            <h3>Web Experiences</h3>
-            <p>
-              Sitios llamativos, modernos y con estructura clara para convertir.
-            </p>
-            <button class="mini-btn">Explorar</button>
-          </article>
-        </div>
-      </section>
-
-      <!-- SECCIÓN 3 -->
-      <section class="panel section accordion-section">
-        <div class="section-tag">03</div>
-        <h2>Cards horizontales en acordeón</h2>
-        <p class="section-text">
-          Tocá cada card para expandirla y mostrar más información.
-        </p>
-
-        <div class="accordion">
-          <article class="accordion-item active">
-            <button class="accordion-header">
-              <span>Concepto</span>
-              <span class="accordion-symbol">+</span>
-            </button>
-            <div class="accordion-content">
-              <p>
-                El neubrutalismo mezcla formas simples, colores fuertes, bordes
-                negros y un look divertido con mucha presencia visual.
-              </p>
-            </div>
-          </article>
-
-          <article class="accordion-item">
-            <button class="accordion-header">
-              <span>Paleta</span>
-              <span class="accordion-symbol">+</span>
-            </button>
-            <div class="accordion-content">
-              <p>
-                Amarillo, turquesa, lila, rosa fuerte, blanco y negro funcionan
-                muy bien para crear contraste y una identidad rápida.
-              </p>
-            </div>
-          </article>
-
-          <article class="accordion-item">
-            <button class="accordion-header">
-              <span>Uso ideal</span>
-              <span class="accordion-symbol">+</span>
-            </button>
-            <div class="accordion-content">
-              <p>
-                Este estilo sirve para portfolios, marcas creativas, landing
-                pages y proyectos que quieran verse modernos, distintos y
-                memorables.
-              </p>
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
-
-    <!-- POPUP RESULTADO -->
-    <div id="quizModal" class="modal hidden">
-      <div class="modal-backdrop"></div>
-
-      <div class="modal-card">
-        <button id="closeModalBtn" class="modal-close" aria-label="Cerrar">
-          ×
+      <div id="quizIntro">
+        <button id="startQuizBtn" class="btn">
+          <img src="assets/play.svg"> Empezar quiz
         </button>
+      </div>
 
-        <div class="modal-badge">Resultado</div>
-        <h3 id="modalResultTitle"></h3>
-        <p id="modalResultText"></p>
+      <div id="quizBox" class="hidden">
+        <h2 id="question"></h2>
+        <div id="answers"></div>
 
-        <div class="modal-actions">
-          <button id="restartQuizBtn" class="btn-primary">Empezar de nuevo</button>
-          <button id="closeResultBtn" class="mini-btn">Cerrar</button>
+        <p id="error" class="hidden">
+          <img src="assets/rayo.svg"> Elegí una opción
+        </p>
+
+        <div class="actions">
+          <button id="prevBtn" class="btn small hidden">Anterior</button>
+          <button id="nextBtn" class="btn">
+            Siguiente <img src="assets/flecha.svg">
+          </button>
         </div>
       </div>
-    </div>
 
-    <script src="app.js"></script>
-  </body>
-                </html>
+    </section>
+
+    <!-- CARDS -->
+    <section class="cards">
+
+      <div class="card">
+        <img src="assets/blob.svg" class="blob">
+        <h3>Branding</h3>
+        <p>Identidad visual potente</p>
+      </div>
+
+      <div class="card">
+        <img src="assets/blob.svg" class="blob">
+        <h3>UI Design</h3>
+        <p>Interfaces con personalidad</p>
+      </div>
+
+      <div class="card">
+        <img src="assets/blob.svg" class="blob">
+        <h3>Creative</h3>
+        <p>Conceptos visuales</p>
+      </div>
+
+    </section>
+
+    <!-- ACORDEÓN -->
+    <section class="accordion">
+
+      <div class="item active">
+        <button>Concepto</button>
+        <div class="content">Diseño con impacto visual fuerte</div>
+      </div>
+
+      <div class="item">
+        <button>Paleta</button>
+        <div class="content">Colores vibrantes y contraste</div>
+      </div>
+
+      <div class="item">
+        <button>Uso</button>
+        <div class="content">Webs creativas y modernas</div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- MODAL -->
+  <div id="modal" class="hidden">
+    <div class="overlay"></div>
+    <div class="modal-box">
+      <h2 id="resultTitle"></h2>
+      <p id="resultText"></p>
+      <button id="restartBtn" class="btn">Reiniciar</button>
+    </div>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
