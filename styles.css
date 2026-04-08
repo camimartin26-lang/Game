@@ -34,6 +34,8 @@ p {
 .hero {
   padding: 40px 20px 10px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-badge {
@@ -64,6 +66,8 @@ p {
 .container {
   width: min(1100px, calc(100% - 32px));
   margin: 24px auto 60px;
+  position: relative;
+  z-index: 1;
 }
 
 .section {
@@ -102,10 +106,66 @@ p {
   max-width: 700px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* QUIZ */
-.quiz-form {
-  display: grid;
+.quiz-shell {
+  display: flex;
+  flex-direction: column;
   gap: 18px;
+}
+
+.quiz-intro {
+  background: var(--turquoise);
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.quiz-intro p {
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.quiz-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.quiz-progress {
+  background: var(--white);
+  border: var(--border);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.quiz-progress-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-weight: 900;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 18px;
+  background: #eaeaea;
+  border: 3px solid var(--black);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 33%;
+  height: 100%;
+  background: var(--pink);
+  transition: width 0.25s ease;
 }
 
 .question-card {
@@ -116,35 +176,43 @@ p {
   box-shadow: var(--shadow);
 }
 
-.question-card h3 {
-  margin-bottom: 14px;
-  font-size: 1.2rem;
+.step-question h3 {
+  margin-bottom: 16px;
+  font-size: 1.25rem;
 }
 
-.question-card label {
-  display: block;
+.answers-container {
+  display: grid;
+  gap: 12px;
+}
+
+.answer-option {
   background: var(--white);
   border: 3px solid var(--black);
   border-radius: 16px;
-  padding: 12px;
-  font-weight: 700;
-  margin-bottom: 10px;
+  padding: 14px;
+  font-weight: 800;
   cursor: pointer;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, background 0.15s ease;
 }
 
-.question-card label:hover {
+.answer-option:hover {
   transform: translate(-2px, -2px);
 }
 
-.question-card input {
-  margin-right: 10px;
-  accent-color: var(--pink);
+.answer-option.selected {
+  background: var(--purple);
+}
+
+.quiz-actions {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .btn-primary,
 .mini-btn,
-.accordion-header {
+.accordion-header,
+.modal-close {
   font-family: inherit;
 }
 
@@ -163,23 +231,9 @@ p {
 
 .btn-primary:hover,
 .mini-btn:hover,
-.accordion-header:hover {
+.accordion-header:hover,
+.modal-close:hover {
   transform: translate(-2px, -2px);
-}
-
-.result-box {
-  margin-top: 22px;
-  background: var(--green);
-  border: var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  font-weight: 800;
-  box-shadow: var(--shadow);
-  font-size: 1.05rem;
-}
-
-.hidden {
-  display: none;
 }
 
 /* CARDS VERTICALES */
@@ -321,6 +375,76 @@ p {
   display: inline-block;
 }
 
+/* MODAL */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-card {
+  position: relative;
+  z-index: 2;
+  width: min(560px, 100%);
+  background: var(--green);
+  border: var(--border);
+  border-radius: 30px;
+  box-shadow: 10px 10px 0 var(--black);
+  padding: 28px;
+}
+
+.modal-badge {
+  display: inline-block;
+  background: var(--white);
+  border: 3px solid var(--black);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 900;
+  margin-bottom: 16px;
+}
+
+.modal-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+}
+
+.modal-card p {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.5;
+  margin-bottom: 22px;
+}
+
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 46px;
+  height: 46px;
+  border: var(--border);
+  border-radius: 50%;
+  background: var(--pink);
+  font-size: 1.5rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--black);
+}
+
 /* DECORACIONES */
 .page-decoration {
   position: fixed;
@@ -407,7 +531,7 @@ p {
     font-size: 2.2rem;
   }
 
-  .question-card h3,
+  .step-question h3,
   .v-card h3,
   .accordion-header {
     font-size: 1rem;
@@ -416,4 +540,12 @@ p {
   .section-tag {
     right: 14px;
   }
-}
+
+  .modal-card {
+    padding: 22px;
+  }
+
+  .modal-card h3 {
+    font-size: 1.4rem;
+  }
+  }
