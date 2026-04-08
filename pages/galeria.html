@@ -20,14 +20,16 @@
 
       <div class="hero-grid">
         <div class="hero-copy">
-          <h1>Galería de imágenes</h1>
+          <h1>Galería de imágenes neubrutalista</h1>
           <p>
-            Una colección visual con estilo neubrutalista. Tocá cualquier imagen
-            para verla en detalle y navegar entre ellas.
+            Una colección visual con la misma estética del home. Podés abrir
+            cualquier imagen, navegar entre ellas y volver al inicio cuando
+            quieras.
           </p>
 
           <div class="hero-actions">
             <a href="../index.html" class="btn-primary">← Volver al home</a>
+            <a href="#gallerySection" class="mini-btn hero-secondary">Ver imágenes</a>
           </div>
         </div>
 
@@ -43,14 +45,15 @@
               <div class="sticker">Gallery</div>
               <h3>Visual moodboard</h3>
               <p>
-                Inspiración visual organizada en una grilla limpia, con preview
-                grande y navegación cómoda.
+                Una grilla de imágenes con preview grande, navegación cómoda y
+                coherencia visual con el resto del sitio.
               </p>
 
               <div class="mini-pills">
                 <span>Images</span>
                 <span>Preview</span>
                 <span>Next / Prev</span>
+                <span>Responsive</span>
               </div>
             </div>
           </div>
@@ -59,11 +62,11 @@
     </header>
 
     <main class="container">
-      <section class="panel section">
+      <section id="gallerySection" class="panel section">
         <div class="section-tag">04</div>
         <h2>Explorar imágenes</h2>
         <p class="section-text">
-          Galería responsive con preview expandido y navegación entre imágenes.
+          Tocá una imagen para verla en grande y recorrer la colección.
         </p>
 
         <div class="gallery-grid">
@@ -133,12 +136,22 @@
           </button>
 
           <div class="gallery-image-frame">
-            <img id="modalImage" class="gallery-modal-image" src="" alt="Imagen ampliada" />
+            <img
+              id="modalImage"
+              class="gallery-modal-image"
+              src=""
+              alt="Imagen ampliada"
+            />
           </div>
 
           <button id="nextImageBtn" class="gallery-nav gallery-next" aria-label="Siguiente">
             →
           </button>
+        </div>
+
+        <div class="modal-actions gallery-actions">
+          <button id="closeGalleryBottom" class="mini-btn">Cerrar</button>
+          <a href="../index.html" class="mini-btn hero-gallery-btn">Volver al home</a>
         </div>
       </div>
     </div>
@@ -164,6 +177,7 @@
       const modalImage = document.getElementById("modalImage");
       const galleryCounter = document.getElementById("galleryCounter");
       const closeGalleryModal = document.getElementById("closeGalleryModal");
+      const closeGalleryBottom = document.getElementById("closeGalleryBottom");
       const prevImageBtn = document.getElementById("prevImageBtn");
       const nextImageBtn = document.getElementById("nextImageBtn");
 
@@ -211,6 +225,7 @@
       });
 
       closeGalleryModal.addEventListener("click", closeGallery);
+      closeGalleryBottom.addEventListener("click", closeGallery);
       galleryBackdrop.addEventListener("click", closeGallery);
       nextImageBtn.addEventListener("click", showNextImage);
       prevImageBtn.addEventListener("click", showPrevImage);
@@ -225,4 +240,4 @@
       });
     </script>
   </body>
-  </html>
+</html>
