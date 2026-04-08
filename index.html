@@ -8,12 +8,10 @@
   </head>
 
   <body>
-    <!-- DECORACIÓN GLOBAL -->
     <img src="assets/estrella.svg" alt="" class="star-deco star-1" />
     <img src="assets/estrella.svg" alt="" class="star-deco star-2" />
     <img src="assets/planeta.svg" alt="" class="planet-deco" />
 
-    <!-- HERO -->
     <header class="hero">
       <div class="hero-top">
         <span class="hero-badge">Retro Modern UI</span>
@@ -25,7 +23,7 @@
           <h1>Diseño web neubrutalista con energía visual</h1>
           <p>
             Una landing colorida con un quiz interactivo, cards verticales y un
-            acordeón horizontal real inspirado en interfaces modernas con vibra
+            acordeón horizontal inspirado en interfaces modernas con vibra
             retro.
           </p>
 
@@ -65,7 +63,7 @@
     </header>
 
     <main class="container">
-      <!-- SECCIÓN 1: QUIZ -->
+      <!-- QUIZ -->
       <section id="quiz" class="panel section quiz-section">
         <div class="section-tag">01</div>
         <h2>Quick Quiz</h2>
@@ -107,7 +105,6 @@
 
             <div id="quizCard" class="question-card step-question">
               <h3 id="questionTitle"></h3>
-
               <div id="answersContainer" class="answers-container"></div>
 
               <p id="quizError" class="quiz-error hidden">
@@ -130,13 +127,12 @@
         </div>
       </section>
 
-      <!-- SECCIÓN 2: CARDS -->
+      <!-- CARDS -->
       <section id="features" class="panel section vertical-cards-section">
         <div class="section-tag">02</div>
         <h2>Cards verticales</h2>
         <p class="section-text">
-          Una grilla visual para mostrar servicios, categorías o capacidades de
-          una marca.
+          Cada card abre una experiencia diferente en popup.
         </p>
 
         <div class="vertical-cards">
@@ -151,10 +147,12 @@
 
             <h3>Branding</h3>
             <p>
-              Identidades visuales frescas, memorables y listas para destacar.
+              Pop up con título, texto e imagen principal.
             </p>
 
-            <button class="mini-btn">Explorar</button>
+            <button class="mini-btn feature-open-btn" data-modal="featureA">
+              Explorar
+            </button>
           </article>
 
           <article class="v-card">
@@ -168,10 +166,12 @@
 
             <h3>UI Design</h3>
             <p>
-              Interfaces con personalidad, usabilidad y una estética potente.
+              Pop up con texto y acordeón expandible.
             </p>
 
-            <button class="mini-btn">Explorar</button>
+            <button class="mini-btn feature-open-btn" data-modal="featureB">
+              Explorar
+            </button>
           </article>
 
           <article class="v-card">
@@ -179,16 +179,18 @@
             <img src="assets/estrella.svg" alt="" class="mini-star mini-star-3" />
 
             <div class="v-card-top">
-              <span class="card-badge">Direction</span>
+              <span class="card-badge">Game</span>
               <div class="v-card-icon">⚡</div>
             </div>
 
-            <h3>Creative Direction</h3>
+            <h3>Mini Juego</h3>
             <p>
-              Conceptos visuales para marcas que buscan una energía distinta.
+              Pop up con un minijuego hecho en JavaScript.
             </p>
 
-            <button class="mini-btn">Explorar</button>
+            <button class="mini-btn feature-open-btn" data-modal="featureC">
+              Explorar
+            </button>
           </article>
 
           <article class="v-card">
@@ -196,21 +198,23 @@
             <img src="assets/estrella.svg" alt="" class="mini-star mini-star-4" />
 
             <div class="v-card-top">
-              <span class="card-badge">Web</span>
+              <span class="card-badge">Gallery</span>
               <div class="v-card-icon">★</div>
             </div>
 
-            <h3>Web Experiences</h3>
+            <h3>Mini Galería</h3>
             <p>
-              Sitios llamativos, modernos y con estructura clara para convertir.
+              Pop up con una mini galería de imágenes navegable.
             </p>
 
-            <button class="mini-btn">Explorar</button>
+            <button class="mini-btn feature-open-btn" data-modal="featureD">
+              Explorar
+            </button>
           </article>
         </div>
       </section>
 
-      <!-- SECCIÓN 3: ACORDEÓN HORIZONTAL -->
+      <!-- ACORDEÓN HORIZONTAL -->
       <section class="panel section accordion-section">
         <div class="section-tag">03</div>
         <h2>Acordeón horizontal</h2>
@@ -281,7 +285,7 @@
       </section>
     </main>
 
-    <!-- MODAL RESULTADO -->
+    <!-- MODAL QUIZ -->
     <div id="quizModal" class="modal hidden">
       <div id="modalBackdrop" class="modal-backdrop"></div>
 
@@ -303,6 +307,127 @@
       </div>
     </div>
 
+    <!-- MODAL FEATURES -->
+    <div id="featureOverlay" class="modal hidden">
+      <div class="modal-backdrop feature-backdrop"></div>
+
+      <!-- A -->
+      <div class="feature-modal hidden" id="featureA">
+        <button class="modal-close feature-close-btn" aria-label="Cerrar">×</button>
+        <div class="modal-badge">Branding</div>
+        <h3>Identidad con impacto</h3>
+        <p>
+          Un sistema visual fuerte combina color, forma, jerarquía y repetición.
+          Este popup muestra contenido editorial con una imagen destacada.
+        </p>
+        <img
+          src="images/IMG-20260408-WA0000.jpg"
+          alt="Imagen branding"
+          class="feature-image"
+        />
+        <div class="modal-actions">
+          <button class="mini-btn feature-close-btn">Cerrar</button>
+        </div>
+      </div>
+
+      <!-- B -->
+      <div class="feature-modal hidden" id="featureB">
+        <button class="modal-close feature-close-btn" aria-label="Cerrar">×</button>
+        <div class="modal-badge">UI Design</div>
+        <h3>Acordeón de contenido</h3>
+        <p>
+          Este módulo muestra bloques de información con acordeón dentro del
+          popup.
+        </p>
+
+        <div class="inner-accordion">
+          <div class="inner-accordion-item active">
+            <button class="inner-accordion-trigger" type="button">
+              Jerarquía visual
+            </button>
+            <div class="inner-accordion-content">
+              El contraste entre tamaños, color y spacing define el ritmo de una interfaz.
+            </div>
+          </div>
+
+          <div class="inner-accordion-item">
+            <button class="inner-accordion-trigger" type="button">
+              Componentes
+            </button>
+            <div class="inner-accordion-content">
+              Botones, cards y badges deben sentirse parte del mismo sistema visual.
+            </div>
+          </div>
+
+          <div class="inner-accordion-item">
+            <button class="inner-accordion-trigger" type="button">
+              Usabilidad
+            </button>
+            <div class="inner-accordion-content">
+              Una interfaz puede ser expresiva y seguir siendo clara, usable y consistente.
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="mini-btn feature-close-btn">Cerrar</button>
+        </div>
+      </div>
+
+      <!-- C -->
+      <div class="feature-modal hidden" id="featureC">
+        <button class="modal-close feature-close-btn" aria-label="Cerrar">×</button>
+        <div class="modal-badge">Mini Game</div>
+        <h3>Atrapá la estrella</h3>
+        <p>
+          Tocá el botón para sumar puntos. Tenés 10 segundos.
+        </p>
+
+        <div class="game-panel">
+          <div class="game-stats">
+            <span id="gameScore">Puntos: 0</span>
+            <span id="gameTimer">Tiempo: 10</span>
+          </div>
+
+          <div class="game-area" id="gameArea">
+            <button id="gameTarget" class="game-target hidden" type="button">★</button>
+          </div>
+
+          <div class="game-controls">
+            <button id="startGameBtn" class="btn-primary">Empezar juego</button>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="mini-btn feature-close-btn">Cerrar</button>
+        </div>
+      </div>
+
+      <!-- D -->
+      <div class="feature-modal hidden" id="featureD">
+        <button class="modal-close feature-close-btn" aria-label="Cerrar">×</button>
+        <div class="modal-badge">Mini Gallery</div>
+        <h3>Preview rápido</h3>
+        <p>
+          Una mini galería dentro del popup con navegación anterior y siguiente.
+        </p>
+
+        <div class="mini-gallery">
+          <button id="miniPrevBtn" class="gallery-nav small-nav" type="button">←</button>
+
+          <div class="mini-gallery-frame">
+            <img id="miniGalleryImage" src="images/IMG-20260408-WA0001.jpg" alt="Mini galería" />
+          </div>
+
+          <button id="miniNextBtn" class="gallery-nav small-nav" type="button">→</button>
+        </div>
+
+        <div class="modal-actions">
+          <button class="mini-btn feature-close-btn">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
     <script src="app.js"></script>
   </body>
-              </html>
+            </html>
