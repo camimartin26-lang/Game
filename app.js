@@ -200,9 +200,19 @@ function setupAccordion() {
     const trigger = item.querySelector(".h-accordion-trigger");
 
     trigger.addEventListener("click", () => {
+      const isActive = item.classList.contains("active");
+
       accordionItems.forEach((accordionItem) => {
         accordionItem.classList.remove("active");
       });
+
+      if (!isActive) {
+        item.classList.add("active");
+      } else {
+        item.classList.add("active");
+      }
+    });
+  });
 
       item.classList.add("active");
     });
