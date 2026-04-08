@@ -1,116 +1,233 @@
-const data = [
-  { q: "¿Qué te gusta más?", a: ["Colores", "Minimal", "Animación"] },
-  { q: "¿Botones?", a: ["Grandes", "Simples", "Animados"] },
-  { q: "¿Sensación?", a: ["Creativa", "Clara", "Innovadora"] }
+const quizData = [
+  {
+    question: "1. ¿Qué te atrae más en una web?",
+    answers: [
+      { text: "Colores vibrantes", value: "A" },
+      { text: "Orden y minimalismo", value: "B" },
+      { text: "Movimiento y efectos", value: "C" },
+    ],
+  },
+  {
+    question: "2. ¿Qué tipo de botones preferís?",
+    answers: [
+      { text: "Grandes y llamativos", value: "A" },
+      { text: "Simples y discretos", value: "B" },
+      { text: "Con animaciones", value: "C" },
+    ],
+  },
+  {
+    question: "3. ¿Qué sensación querés transmitir?",
+    answers: [
+      { text: "Energía y creatividad", value: "A" },
+      { text: "Confianza y claridad", value: "B" },
+      { text: "Innovación y dinamismo", value: "C" },
+    ],
+  },
 ];
 
-let step = 0;
-let answers = [];
-let selected = null;
-
-const startBtn = document.getElementById("startQuizBtn");
+const startQuizBtn = document.getElementById("startQuizBtn");
 const quizIntro = document.getElementById("quizIntro");
-const quizBox = document.getElementById("quizBox");
+const quizStepper = document.getElementById("quizStepper");
+const questionCounter = document.getElementById("questionCounter");
+const progressPercent = document.getElementById("progressPercent");
+const progressFill = document.getElementById("progressFill");
+const questionTitle = document.getElementById("questionTitle");
+const answersContainer = document.getElementById("answersContainer");
+const nextQuestionBtn = document.getElementById("nextQuestionBtn");
+const prevQuestionBtn = document.getElementById("prevQuestionBtn");
+const quizError = document.getElementById("quizError");
+const quizCard = document.getElementById("quizCard");
 
-const qEl = document.getElementById("question");
-const aEl = document.getElementById("answers");
+const quizModal = document.getElementById("quizModal");
+const modalBackdrop = document.getElementById("modalBackdrop");
+const modalResultTitle = document.getElementById("modalResultTitle");
+const modalResultText = document.getElementById("modalResultText");
+const closeModalBtn = document.getElementById("closeModalBtn");
+const closeResultBtn = document.getElementById("closeResultBtn");
+const restartQuizBtn = document.getElementById("restartQuizBtn");
 
-const nextBtn = document.getElementById("nextBtn");
-const prevBtn = document.getElementById("prevBtn");
-const error = document.getElementById("error");
+const accordionItems = document.querySelectorAll(".h-accordion-item");
 
-const modal = document.getElementById("modal");
-const resultTitle = document.getElementById("resultTitle");
-const resultText = document.getElementById("resultText");
-const restartBtn = document.getElementById("restartBtn");
+let currentQuestionIndex = 0;
+let selectedAnswer = null;
+let userAnswers = [];
 
-/* START */
-startBtn.onclick = () => {
+function startQuiz() {
+  currentQuestionIndex = 0;
+  selectedAnswer = null;
+  userAnswers = [];
+  quizError.classList.add("hidden");
   quizIntro.classList.add("hidden");
-  quizBox.classList.remove("hidden");
-  render();
-};
-
-/* RENDER */
-function render() {
-  qEl.innerText = data[step].q;
-  aEl.innerHTML = "";
-  selected = answers[step] ?? null;
-
-  data[step].a.forEach((text, i) => {
-    const btn = document.createElement("button");
-    btn.innerText = text;
-
-    if (selected === i) btn.classList.add("selected");
-
-    btn.onclick = () => {
-      selected = i;
-      document.querySelectorAll("#answers button")
-        .forEach(b => b.classList.remove("selected"));
-      btn.classList.add("selected");
-    };
-
-    aEl.appendChild(btn);
-  });
-
-  prevBtn.classList.toggle("hidden", step === 0);
+  quizStepper.classList.remove("hidden");
+  renderQuestion();
 }
 
-/* NEXT */
-nextBtn.onclick = () => {
-  if (selected === null) {
-    error.classList.remove("hidden");
+function updateProgress() {
+  const currentStep = currentQuestionIndex + 1;
+  const progress = Math.round((currentStep / quizData.length) * 100);
+
+  questionCounter.textContent = `Pregunta ${currentStep} de ${quizData.length}`;
+  progressPercent.textContent = `${progress}%`;
+  progressFill.style.width = `${progress}%`;
+}
+
+function updateButtons() {
+  prevQuestionBtn.classList.toggle("hidden", currentQuestionIndex === 0);
+  nextQuestionBtn.querySelector("span").textContent =
+    currentQuestionIndex === quizData.length - 1
+      ? "Ver resultado"
+      : "Siguiente";
+}
+
+function renderQuestion() {
+  const currentQuestion = quizData[currentQuestionIndex];
+  selectedAnswer = userAnswers[currentQuestionIndex] || null;
+
+  quizCard.classList.add("animating");
+
+  setTimeout(() => {
+    updateProgress();
+    updateButtons();
+    questionTitle.textContent = currentQuestion.question;
+    answersContainer.innerHTML = "";
+
+    currentQuestion.answers.forEach((answer) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "answer-option";
+      button.textContent = answer.text;
+
+      if (selectedAnswer === answer.value) {
+        button.classList.add("selected");
+      }
+
+      button.addEventListener("click", () => {
+        selectedAnswer = answer.value;
+        quizError.classList.add("hidden");
+
+        document.querySelectorAll(".answer-option").forEach((option) => {
+          option.classList.remove("selected");
+        });
+
+        button.classList.add("selected");
+      });
+
+      answersContainer.appendChild(button);
+    });
+
+    quizCard.classList.remove("animating");
+  }, 140);
+}
+
+function getResultContent() {
+  const countA = userAnswers.filter((a) => a === "A").length;
+  const countB = userAnswers.filter((a) => a === "B").length;
+  const countC = userAnswers.filter((a) => a === "C").length;
+
+  if (countA >= countB && countA >= countC) {
+    return {
+      title: "✨ Tu estilo es: Neubrutalismo vibrante",
+      text:
+        "Te atraen los colores fuertes, la energía visual y las interfaces con personalidad. Tu estética ideal combina impacto, contraste y un look muy expresivo.",
+    };
+  }
+
+  if (countB >= countA && countB >= countC) {
+    return {
+      title: "🧼 Tu estilo es: Minimalismo estructurado",
+      text:
+        "Preferís claridad, orden y equilibrio visual. Te funcionan mejor las interfaces limpias, directas y con una sensación de control más refinada.",
+    };
+  }
+
+  return {
+    title: "🚀 Tu estilo es: Futurismo dinámico",
+    text:
+      "Buscás innovación, movimiento y una experiencia que se sienta viva. Te atraen las interfaces modernas, experimentales y con fuerte energía tecnológica.",
+  };
+}
+
+function showResult() {
+  const result = getResultContent();
+  modalResultTitle.textContent = result.title;
+  modalResultText.textContent = result.text;
+  quizModal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function nextQuestion() {
+  if (!selectedAnswer) {
+    quizError.classList.remove("hidden");
     return;
   }
 
-  error.classList.add("hidden");
-  answers[step] = selected;
+  userAnswers[currentQuestionIndex] = selectedAnswer;
 
-  if (step < data.length - 1) {
-    step++;
-    render();
-  } else {
-    showResult();
+  if (currentQuestionIndex < quizData.length - 1) {
+    currentQuestionIndex += 1;
+    renderQuestion();
+    return;
   }
-};
 
-/* PREV */
-prevBtn.onclick = () => {
-  step--;
-  render();
-};
-
-/* RESULT */
-function showResult() {
-  modal.classList.remove("hidden");
-
-  const score = answers.reduce((a, b) => a + b, 0);
-
-  if (score < 2) {
-    resultTitle.innerText = "Neubrutalismo 🔥";
-    resultText.innerText = "Te gustan interfaces fuertes";
-  } else if (score < 4) {
-    resultTitle.innerText = "Minimalismo 🧼";
-    resultText.innerText = "Preferís claridad";
-  } else {
-    resultTitle.innerText = "Futurista 🚀";
-    resultText.innerText = "Buscás innovación";
-  }
+  showResult();
 }
 
-/* RESET */
-restartBtn.onclick = () => {
-  modal.classList.add("hidden");
-  step = 0;
-  answers = [];
-  quizBox.classList.add("hidden");
-  quizIntro.classList.remove("hidden");
-};
+function prevQuestion() {
+  if (currentQuestionIndex === 0) return;
 
-/* ACORDEÓN */
-document.querySelectorAll(".item").forEach(item => {
-  item.querySelector("button").onclick = () => {
-    document.querySelectorAll(".item").forEach(i => i.classList.remove("active"));
-    item.classList.add("active");
-  };
-});
+  userAnswers[currentQuestionIndex] = selectedAnswer;
+  currentQuestionIndex -= 1;
+  renderQuestion();
+  quizError.classList.add("hidden");
+}
+
+function closeModal() {
+  quizModal.classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
+function resetQuiz() {
+  closeModal();
+  currentQuestionIndex = 0;
+  selectedAnswer = null;
+  userAnswers = [];
+  quizError.classList.add("hidden");
+  quizStepper.classList.add("hidden");
+  quizIntro.classList.remove("hidden");
+}
+
+function setupAccordion() {
+  accordionItems.forEach((item) => {
+    const trigger = item.querySelector(".h-accordion-trigger");
+
+    trigger.addEventListener("click", () => {
+      accordionItems.forEach((accordionItem) => {
+        accordionItem.classList.remove("active");
+      });
+
+      item.classList.add("active");
+    });
+  });
+}
+
+function setupKeyboardSupport() {
+  document.addEventListener("keydown", (event) => {
+    const isModalOpen = !quizModal.classList.contains("hidden");
+
+    if (event.key === "Escape" && isModalOpen) {
+      closeModal();
+    }
+  });
+}
+
+startQuizBtn.addEventListener("click", startQuiz);
+nextQuestionBtn.addEventListener("click", nextQuestion);
+prevQuestionBtn.addEventListener("click", prevQuestion);
+
+closeModalBtn.addEventListener("click", closeModal);
+closeResultBtn.addEventListener("click", closeModal);
+restartQuizBtn.addEventListener("click", resetQuiz);
+modalBackdrop.addEventListener("click", closeModal);
+
+setupAccordion();
+setupKeyboardSupport();
