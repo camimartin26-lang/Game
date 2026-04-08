@@ -1,1 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neubrutalist UI Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-decoration deco-star star-1"></div>
+    <div class="page-decoration deco-star star-2"></div>
+    <div class="page-decoration deco-dot dot-1"></div>
+    <div class="page-decoration deco-dot dot-2"></div>
 
+    <header class="hero">
+      <div class="hero-badge">Retro Modern UI</div>
+      <h1>Diseño web estilo neubrutalista</h1>
+      <p>
+        Una landing con 3 secciones: quiz, cards verticales y acordeón
+        horizontal.
+      </p>
+    </header>
+
+    <main class="container">
+      <!-- SECCIÓN 1 -->
+      <section class="panel section quiz-section">
+        <div class="section-tag">01</div>
+        <h2>Quick Quiz</h2>
+        <p class="section-text">
+          Respondé estas 3 preguntas para descubrir qué estilo de interfaz va
+          mejor con vos.
+        </p>
+
+        <form id="quizForm" class="quiz-form">
+          <div class="question-card">
+            <h3>1. ¿Qué te atrae más en una web?</h3>
+            <label>
+              <input type="radio" name="q1" value="A" />
+              Colores vibrantes
+            </label>
+            <label>
+              <input type="radio" name="q1" value="B" />
+              Orden y minimalismo
+            </label>
+            <label>
+              <input type="radio" name="q1" value="C" />
+              Movimiento y efectos
+            </label>
+          </div>
+
+          <div class="question-card">
+            <h3>2. ¿Qué tipo de botones preferís?</h3>
+            <label>
+              <input type="radio" name="q2" value="A" />
+              Grandes y llamativos
+            </label>
+            <label>
+              <input type="radio" name="q2" value="B" />
+              Simples y discretos
+            </label>
+            <label>
+              <input type="radio" name="q2" value="C" />
+              Con animaciones
+            </label>
+          </div>
+
+          <div class="question-card">
+            <h3>3. ¿Qué sensación querés transmitir?</h3>
+            <label>
+              <input type="radio" name="q3" value="A" />
+              Energía y creatividad
+            </label>
+            <label>
+              <input type="radio" name="q3" value="B" />
+              Confianza y claridad
+            </label>
+            <label>
+              <input type="radio" name="q3" value="C" />
+              Innovación y dinamismo
+            </label>
+          </div>
+
+          <button type="submit" class="btn-primary">Ver resultado</button>
+        </form>
+
+        <div id="quizResult" class="result-box hidden"></div>
+      </section>
+
+      <!-- SECCIÓN 2 -->
+      <section class="panel section vertical-cards-section">
+        <div class="section-tag">02</div>
+        <h2>Cards verticales</h2>
+        <p class="section-text">
+          Una grilla con tarjetas visuales, perfectas para servicios, features o
+          proyectos.
+        </p>
+
+        <div class="vertical-cards">
+          <article class="v-card">
+            <div class="v-card-icon">✦</div>
+            <h3>Branding</h3>
+            <p>
+              Identidades visuales frescas, memorables y listas para destacar.
+            </p>
+            <button class="mini-btn">Explorar</button>
+          </article>
+
+          <article class="v-card">
+            <div class="v-card-icon">☻</div>
+            <h3>UI Design</h3>
+            <p>
+              Interfaces con personalidad, usabilidad y una estética potente.
+            </p>
+            <button class="mini-btn">Explorar</button>
+          </article>
+
+          <article class="v-card">
+            <div class="v-card-icon">⚡</div>
+            <h3>Creative Direction</h3>
+            <p>
+              Conceptos visuales para marcas que buscan una energía distinta.
+            </p>
+            <button class="mini-btn">Explorar</button>
+          </article>
+
+          <article class="v-card">
+            <div class="v-card-icon">★</div>
+            <h3>Web Experiences</h3>
+            <p>
+              Sitios llamativos, modernos y con estructura clara para convertir.
+            </p>
+            <button class="mini-btn">Explorar</button>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3 -->
+      <section class="panel section accordion-section">
+        <div class="section-tag">03</div>
+        <h2>Cards horizontales en acordeón</h2>
+        <p class="section-text">
+          Tocá cada card para expandirla y mostrar más información.
+        </p>
+
+        <div class="accordion">
+          <article class="accordion-item active">
+            <button class="accordion-header">
+              <span>Concepto</span>
+              <span class="accordion-symbol">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>
+                El neubrutalismo mezcla formas simples, colores fuertes, bordes
+                negros y un look divertido con mucha presencia visual.
+              </p>
+            </div>
+          </article>
+
+          <article class="accordion-item">
+            <button class="accordion-header">
+              <span>Paleta</span>
+              <span class="accordion-symbol">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>
+                Amarillo, turquesa, lila, rosa fuerte, blanco y negro funcionan
+                muy bien para crear contraste y una identidad rápida.
+              </p>
+            </div>
+          </article>
+
+          <article class="accordion-item">
+            <button class="accordion-header">
+              <span>Uso ideal</span>
+              <span class="accordion-symbol">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>
+                Este estilo sirve para portfolios, marcas creativas, landing
+                pages y proyectos que quieran verse modernos, distintos y
+                memorables.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
