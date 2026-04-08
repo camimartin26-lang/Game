@@ -1,178 +1,116 @@
-const quizData = [
-  {
-    question: "1. ¿Qué te atrae más en una web?",
-    answers: [
-      { text: "Colores vibrantes", value: "A" },
-      { text: "Orden y minimalismo", value: "B" },
-      { text: "Movimiento y efectos", value: "C" },
-    ],
-  },
-  {
-    question: "2. ¿Qué tipo de botones preferís?",
-    answers: [
-      { text: "Grandes y llamativos", value: "A" },
-      { text: "Simples y discretos", value: "B" },
-      { text: "Con animaciones", value: "C" },
-    ],
-  },
-  {
-    question: "3. ¿Qué sensación querés transmitir?",
-    answers: [
-      { text: "Energía y creatividad", value: "A" },
-      { text: "Confianza y claridad", value: "B" },
-      { text: "Innovación y dinamismo", value: "C" },
-    ],
-  },
+const data = [
+  { q: "¿Qué te gusta más?", a: ["Colores", "Minimal", "Animación"] },
+  { q: "¿Botones?", a: ["Grandes", "Simples", "Animados"] },
+  { q: "¿Sensación?", a: ["Creativa", "Clara", "Innovadora"] }
 ];
 
-const startQuizBtn = document.getElementById("startQuizBtn");
+let step = 0;
+let answers = [];
+let selected = null;
+
+const startBtn = document.getElementById("startQuizBtn");
 const quizIntro = document.getElementById("quizIntro");
-const quizStepper = document.getElementById("quizStepper");
-const questionCounter = document.getElementById("questionCounter");
-const progressPercent = document.getElementById("progressPercent");
-const progressFill = document.getElementById("progressFill");
-const questionTitle = document.getElementById("questionTitle");
-const answersContainer = document.getElementById("answersContainer");
-const nextQuestionBtn = document.getElementById("nextQuestionBtn");
+const quizBox = document.getElementById("quizBox");
 
-const quizModal = document.getElementById("quizModal");
-const modalResultTitle = document.getElementById("modalResultTitle");
-const modalResultText = document.getElementById("modalResultText");
-const closeModalBtn = document.getElementById("closeModalBtn");
-const closeResultBtn = document.getElementById("closeResultBtn");
-const restartQuizBtn = document.getElementById("restartQuizBtn");
+const qEl = document.getElementById("question");
+const aEl = document.getElementById("answers");
 
-const accordionItems = document.querySelectorAll(".accordion-item");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const error = document.getElementById("error");
 
-let currentQuestionIndex = 0;
-let selectedAnswer = null;
-let userAnswers = [];
+const modal = document.getElementById("modal");
+const resultTitle = document.getElementById("resultTitle");
+const resultText = document.getElementById("resultText");
+const restartBtn = document.getElementById("restartBtn");
 
-function startQuiz() {
-  currentQuestionIndex = 0;
-  selectedAnswer = null;
-  userAnswers = [];
-
+/* START */
+startBtn.onclick = () => {
   quizIntro.classList.add("hidden");
-  quizStepper.classList.remove("hidden");
+  quizBox.classList.remove("hidden");
+  render();
+};
 
-  renderQuestion();
-}
+/* RENDER */
+function render() {
+  qEl.innerText = data[step].q;
+  aEl.innerHTML = "";
+  selected = answers[step] ?? null;
 
-function renderQuestion() {
-  const currentQuestion = quizData[currentQuestionIndex];
-  const currentStep = currentQuestionIndex + 1;
-  const progress = Math.round((currentStep / quizData.length) * 100);
+  data[step].a.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.innerText = text;
 
-  questionCounter.textContent = `Pregunta ${currentStep} de ${quizData.length}`;
-  progressPercent.textContent = `${progress}%`;
-  progressFill.style.width = `${progress}%`;
+    if (selected === i) btn.classList.add("selected");
 
-  questionTitle.textContent = currentQuestion.question;
-  answersContainer.innerHTML = "";
-  selectedAnswer = userAnswers[currentQuestionIndex] || null;
+    btn.onclick = () => {
+      selected = i;
+      document.querySelectorAll("#answers button")
+        .forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+    };
 
-  currentQuestion.answers.forEach((answer) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "answer-option";
-    button.textContent = answer.text;
-
-    if (selectedAnswer === answer.value) {
-      button.classList.add("selected");
-    }
-
-    button.addEventListener("click", () => {
-      selectedAnswer = answer.value;
-
-      document.querySelectorAll(".answer-option").forEach((option) => {
-        option.classList.remove("selected");
-      });
-
-      button.classList.add("selected");
-    });
-
-    answersContainer.appendChild(button);
+    aEl.appendChild(btn);
   });
 
-  nextQuestionBtn.textContent =
-    currentQuestionIndex === quizData.length - 1 ? "Ver resultado" : "Siguiente";
+  prevBtn.classList.toggle("hidden", step === 0);
 }
 
-function showResult() {
-  const countA = userAnswers.filter((a) => a === "A").length;
-  const countB = userAnswers.filter((a) => a === "B").length;
-  const countC = userAnswers.filter((a) => a === "C").length;
-
-  let resultTitle = "";
-  let resultText = "";
-
-  if (countA >= countB && countA >= countC) {
-    resultTitle = "✨ Tu estilo es: Neubrutalismo vibrante";
-    resultText =
-      "Te atraen los colores fuertes, la energía visual y las interfaces con personalidad. Tu estilo ideal tiene contraste, formas marcadas y una presencia muy fuerte.";
-  } else if (countB >= countA && countB >= countC) {
-    resultTitle = "🧼 Tu estilo es: Minimalismo estructurado";
-    resultText =
-      "Preferís claridad, orden y una experiencia visual más limpia. Te funcionan mejor las interfaces elegantes, equilibradas y directas.";
-  } else {
-    resultTitle = "🚀 Tu estilo es: Futurismo dinámico";
-    resultText =
-      "Buscás innovación, movimiento y experiencias que se sientan vivas. Te atraen las interfaces modernas, expresivas y con energía tecnológica.";
-  }
-
-  modalResultTitle.textContent = resultTitle;
-  modalResultText.textContent = resultText;
-  quizModal.classList.remove("hidden");
-}
-
-function nextQuestion() {
-  if (!selectedAnswer) {
-    alert("Elegí una opción antes de continuar.");
+/* NEXT */
+nextBtn.onclick = () => {
+  if (selected === null) {
+    error.classList.remove("hidden");
     return;
   }
 
-  userAnswers[currentQuestionIndex] = selectedAnswer;
+  error.classList.add("hidden");
+  answers[step] = selected;
 
-  if (currentQuestionIndex < quizData.length - 1) {
-    currentQuestionIndex++;
-    renderQuestion();
+  if (step < data.length - 1) {
+    step++;
+    render();
   } else {
     showResult();
   }
+};
+
+/* PREV */
+prevBtn.onclick = () => {
+  step--;
+  render();
+};
+
+/* RESULT */
+function showResult() {
+  modal.classList.remove("hidden");
+
+  const score = answers.reduce((a, b) => a + b, 0);
+
+  if (score < 2) {
+    resultTitle.innerText = "Neubrutalismo 🔥";
+    resultText.innerText = "Te gustan interfaces fuertes";
+  } else if (score < 4) {
+    resultTitle.innerText = "Minimalismo 🧼";
+    resultText.innerText = "Preferís claridad";
+  } else {
+    resultTitle.innerText = "Futurista 🚀";
+    resultText.innerText = "Buscás innovación";
+  }
 }
 
-function closeModal() {
-  quizModal.classList.add("hidden");
-}
-
-function resetQuiz() {
-  closeModal();
-  quizStepper.classList.add("hidden");
+/* RESET */
+restartBtn.onclick = () => {
+  modal.classList.add("hidden");
+  step = 0;
+  answers = [];
+  quizBox.classList.add("hidden");
   quizIntro.classList.remove("hidden");
-  currentQuestionIndex = 0;
-  selectedAnswer = null;
-  userAnswers = [];
-}
+};
 
-startQuizBtn.addEventListener("click", startQuiz);
-nextQuestionBtn.addEventListener("click", nextQuestion);
-closeModalBtn.addEventListener("click", closeModal);
-closeResultBtn.addEventListener("click", closeModal);
-restartQuizBtn.addEventListener("click", resetQuiz);
-
-accordionItems.forEach((item) => {
-  const header = item.querySelector(".accordion-header");
-
-  header.addEventListener("click", () => {
-    const isActive = item.classList.contains("active");
-
-    accordionItems.forEach((accordionItem) => {
-      accordionItem.classList.remove("active");
-    });
-
-    if (!isActive) {
-      item.classList.add("active");
-    }
-  });
+/* ACORDEÓN */
+document.querySelectorAll(".item").forEach(item => {
+  item.querySelector("button").onclick = () => {
+    document.querySelectorAll(".item").forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+  };
 });
