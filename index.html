@@ -72,16 +72,15 @@
         <div class="section-tag">01</div>
         <h2>Calculadora de costos</h2>
         <p class="section-text">
-          Reemplazamos el quiz por una calculadora visual por pasos, manteniendo la misma
-          experiencia divertida e interactiva.
+          Respondé 5 preguntas. Resultado: costo de conexión + costo mensual.
         </p>
 
         <div class="calculator-shell">
           <div id="calcIntro" class="calc-intro">
-            <div class="intro-badge">5 pasos</div>
+            <div class="intro-badge">Quiz de costos</div>
             <p>
-              Completá los datos del cliente y obtené el detalle del costo de conexión
-              y de la mensualidad estimada.
+              Pasos guiados, sin errores. Reglas: conexión depende de tipo +
+              decos (+ GO Box). Mensual depende del plan + $280 por deco extra + fútbol.
             </p>
 
             <div class="calc-intro-actions">
@@ -95,7 +94,7 @@
           <div id="calcStepper" class="calc-stepper hidden" aria-live="polite">
             <div class="calc-progress">
               <div class="calc-progress-top">
-                <span id="calcQuestionCounter">Paso 1 de 5</span>
+                <span id="calcStepLabel">Paso 1</span>
                 <span id="calcProgressPercent">20%</span>
               </div>
 
@@ -110,7 +109,7 @@
 
               <p id="calcError" class="quiz-error hidden" role="alert">
                 <img src="assets/rayo.svg" alt="" class="icon-ray" aria-hidden="true" />
-                <span>Elegí una opción antes de continuar.</span>
+                <span>Elegí una opción para continuar.</span>
               </p>
             </div>
 
@@ -120,41 +119,13 @@
                 class="mini-btn secondary-btn hidden"
                 type="button"
               >
-                Anterior
+                Atrás
               </button>
 
               <button id="nextCalcBtn" class="btn-primary next-btn" type="button">
                 <span>Siguiente</span>
                 <img src="assets/flecha.svg" alt="" class="icon-arrow" aria-hidden="true" />
               </button>
-            </div>
-          </div>
-
-          <div id="calcResult" class="calc-result hidden">
-            <div class="result-top">
-              <div class="modal-badge">Resultado</div>
-              <button id="restartCalcBtn" class="mini-btn" type="button">
-                Calcular de nuevo
-              </button>
-            </div>
-
-            <h3>Resumen del costo estimado</h3>
-
-            <div class="result-grid">
-              <div class="result-box">
-                <span class="result-label">Costo de conexión</span>
-                <strong id="installationCost">$0</strong>
-              </div>
-
-              <div class="result-box">
-                <span class="result-label">Mensual estimado</span>
-                <strong id="monthlyCost">$0</strong>
-              </div>
-            </div>
-
-            <div class="result-breakdown">
-              <h4>Detalle del cálculo</h4>
-              <ul id="resultBreakdownList"></ul>
             </div>
           </div>
         </div>
@@ -180,9 +151,7 @@
             </div>
 
             <h3>Planes y adicionales</h3>
-            <p>
-              Resumen rápido de planes base, deco extra, fútbol y GO Box.
-            </p>
+            <p>Precios base, notas, GO Box, fútbol y beneficios.</p>
 
             <button class="mini-btn feature-open-btn" data-modal="featureA" type="button">
               Abrir
@@ -199,9 +168,7 @@
             </div>
 
             <h3>Proceso de venta</h3>
-            <p>
-              Checkpoints útiles antes de cerrar la venta y cargar correctamente.
-            </p>
+            <p>Checklist breve, datos mínimos y mensajes útiles.</p>
 
             <button class="mini-btn feature-open-btn" data-modal="featureB" type="button">
               Abrir
@@ -218,9 +185,7 @@
             </div>
 
             <h3>Mini juego</h3>
-            <p>
-              Una pausa divertida para sumar puntos atrapando la estrella.
-            </p>
+            <p>Una pausa divertida para sumar puntos atrapando la estrella.</p>
 
             <button class="mini-btn feature-open-btn" data-modal="featureC" type="button">
               Jugar
@@ -237,9 +202,7 @@
             </div>
 
             <h3>Teléfonos útiles</h3>
-            <p>
-              Accesos rápidos a soporte, ventas y cobranzas.
-            </p>
+            <p>Accesos rápidos a soporte, ventas y cobranzas.</p>
 
             <button class="mini-btn feature-open-btn" data-modal="featureD" type="button">
               Ver teléfonos
@@ -257,7 +220,7 @@
         </p>
 
         <div class="horizontal-accordion" id="horizontalAccordion">
-          <article class="h-accordion-item active" data-index="0">
+          <article class="h-accordion-item active">
             <button class="h-accordion-trigger" type="button">
               <span class="h-accordion-number">01</span>
               <span class="h-accordion-label">Cliente</span>
@@ -267,16 +230,15 @@
             <div class="h-accordion-panel">
               <div class="panel-inner">
                 <span class="panel-pill">Validación</span>
-                <h3>Confirmá el tipo de cliente</h3>
+                <h3>Confirmá tipo de cliente + decos antes de cotizar</h3>
                 <p>
-                  Antes de presupuestar, verificá si es cliente nuevo o existente.
-                  Ese dato cambia el costo de conexión y ordena mejor toda la conversación.
+                  Esa validación ordena el cálculo de conexión y evita presupuestos erróneos.
                 </p>
               </div>
             </div>
           </article>
 
-          <article class="h-accordion-item" data-index="1">
+          <article class="h-accordion-item">
             <button class="h-accordion-trigger" type="button">
               <span class="h-accordion-number">02</span>
               <span class="h-accordion-label">Oferta</span>
@@ -286,16 +248,15 @@
             <div class="h-accordion-panel">
               <div class="panel-inner">
                 <span class="panel-pill">Presentación</span>
-                <h3>Explicá el armado del costo</h3>
+                <h3>Separá conexión de mensualidad</h3>
                 <p>
-                  Separá claramente conexión, plan base, decos extra y adicionales.
-                  Cuando el cliente entiende el detalle, baja la fricción.
+                  Explicá plan base, decos extra, GO Box y fútbol por separado.
                 </p>
               </div>
             </div>
           </article>
 
-          <article class="h-accordion-item" data-index="2">
+          <article class="h-accordion-item">
             <button class="h-accordion-trigger" type="button">
               <span class="h-accordion-number">03</span>
               <span class="h-accordion-label">Cierre</span>
@@ -305,10 +266,9 @@
             <div class="h-accordion-panel">
               <div class="panel-inner">
                 <span class="panel-pill">Checklist</span>
-                <h3>No cierres sin revisar esto</h3>
+                <h3>Antes de cerrar</h3>
                 <p>
-                  Dirección, horario, cantidad de decos, plan elegido, adicionales
-                  y datos del titular. Un cierre prolijo evita retrabajo.
+                  Confirmar dirección, horario y cantidad de decos.
                 </p>
               </div>
             </div>
@@ -316,6 +276,34 @@
         </div>
       </section>
     </main>
+
+    <!-- MODAL RESULTADO -->
+    <div
+      id="resultModal"
+      class="modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Resultado de costos"
+    >
+      <div class="modal-backdrop result-backdrop"></div>
+
+      <div class="feature-modal result-modal-card">
+        <button class="modal-close result-close-btn" type="button" aria-label="Cerrar">
+          ×
+        </button>
+
+        <div class="modal-badge">Resultado</div>
+        <h3 id="resultTitle">Resultado de costos</h3>
+        <p id="resultDesc">Costo de conexión y costo mensual calculados</p>
+
+        <div id="resultContent" class="result-content"></div>
+
+        <div class="modal-actions">
+          <button id="resetQuizBtn" class="btn-primary" type="button">Reiniciar quiz</button>
+          <button class="mini-btn result-close-btn" type="button">Cerrar</button>
+        </div>
+      </div>
+    </div>
 
     <!-- MODAL FEATURES -->
     <div
@@ -335,26 +323,35 @@
 
         <div class="modal-badge">Planes</div>
         <h3>Resumen rápido de productos</h3>
-        <p>
-          Este bloque sirve como apoyo rápido en la conversación comercial.
-        </p>
+        <p>Referencia rápida para la conversación comercial.</p>
 
         <div class="info-grid">
           <div class="info-box">
-            <h4>Plan Bronce</h4>
-            <p>Plan base económico para ofrecer una opción de entrada.</p>
+            <h4>Tabla rápida</h4>
+            <p><strong>Plata HD</strong> — $990 — 147 canales HD</p>
+            <p><strong>Plata HD Promo J</strong> — $890 — Por cupos</p>
+            <p><strong>Oro HD</strong> — $1190 — 204 canales HD</p>
           </div>
           <div class="info-box">
-            <h4>Plan Plata</h4>
-            <p>Opción media con mejor equilibrio entre costo y valor percibido.</p>
+            <h4>Info todos los planes</h4>
+            <p>
+              Todos los planes incluyen un decodificador, Prime Video y DirecTV Go gratis.
+              En Montevideo incluyen un mes de HBO MAX gratis y en el interior Universal+,
+              luego quedan con descuento.
+            </p>
           </div>
           <div class="info-box">
-            <h4>Plan Oro</h4>
-            <p>Plan más robusto para clientes que buscan experiencia más completa.</p>
+            <h4>GO Box</h4>
+            <p>
+              Convierte una TV común en inteligente. Cuesta $500 para P3/TC y $1000
+              para P1/P2. Se paga junto a la conexión.
+            </p>
           </div>
           <div class="info-box">
-            <h4>Adicionales</h4>
-            <p>Fútbol, GO Box y decos extra modifican el total final.</p>
+            <h4>Fútbol uruguayo</h4>
+            <p>
+              Suma $300 a la cuota mensual. Aplica a todas las TVs contratadas.
+            </p>
           </div>
         </div>
 
@@ -371,48 +368,42 @@
 
         <div class="modal-badge">Proceso</div>
         <h3>Guía rápida de cierre</h3>
-        <p>
-          Acordeón interno con los pasos que más ayudan a ordenar la gestión.
-        </p>
+        <p>Acordeón interno con los pasos más útiles.</p>
 
         <div class="inner-accordion">
           <div class="inner-accordion-item active">
             <button class="inner-accordion-trigger" type="button">
-              1. Detectar necesidad
+              Diagnóstico
             </button>
             <div class="inner-accordion-content">
-              Confirmá qué busca el cliente, cuántos televisores quiere conectar
-              y si prioriza precio o contenido.
+              TV/decos, plan, extras, forma de pago.
             </div>
           </div>
 
           <div class="inner-accordion-item">
             <button class="inner-accordion-trigger" type="button">
-              2. Presentar propuesta
+              Cierre
             </button>
             <div class="inner-accordion-content">
-              Explicá plan, adicionales, costo de conexión y mensualidad sin mezclar
-              conceptos.
+              Confirmar total, dirección y fecha de instalación.
             </div>
           </div>
 
           <div class="inner-accordion-item">
             <button class="inner-accordion-trigger" type="button">
-              3. Validar datos
+              Datos mínimos
             </button>
             <div class="inner-accordion-content">
-              Revisá nombre del titular, documento, dirección, contacto y horario
-              disponible para instalación.
+              Nombre, CI, teléfono, dirección, horario.
             </div>
           </div>
 
           <div class="inner-accordion-item">
             <button class="inner-accordion-trigger" type="button">
-              4. Cerrar y confirmar
+              Mensaje inicial
             </button>
             <div class="inner-accordion-content">
-              Repetí al cliente el detalle final antes de cerrar: plan, adicionales,
-              cantidad de decos y costo total estimado.
+              Hola ¿Qué plan te interesa y cuántos decodificadores necesitás?
             </div>
           </div>
         </div>
@@ -430,9 +421,7 @@
 
         <div class="modal-badge">Mini juego</div>
         <h3>Atrapá la estrella</h3>
-        <p>
-          Hacé clic sobre la estrella todas las veces que puedas en 10 segundos.
-        </p>
+        <p>Hacé clic sobre la estrella todas las veces que puedas en 10 segundos.</p>
 
         <div class="game-panel">
           <div class="game-stats">
@@ -479,19 +468,19 @@
           <a href="tel:08001234567" class="phone-card">
             <span class="phone-tag">Soporte</span>
             <strong>0800 123 4567</strong>
-            <span>Soporte técnico</span>
+            <span>Fallas / instalaciones / consultas</span>
           </a>
 
           <a href="tel:08007654321" class="phone-card">
             <span class="phone-tag">Ventas</span>
             <strong>0800 765 4321</strong>
-            <span>Ventas / Altas</span>
+            <span>Planes / activaciones</span>
           </a>
 
           <a href="tel:08001112222" class="phone-card">
             <span class="phone-tag">Cobranzas</span>
             <strong>0800 111 2222</strong>
-            <span>Pagos y cobranzas</span>
+            <span>Pagos / facturación</span>
           </a>
         </div>
 
