@@ -3,57 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neubrutalismo UI</title>
+    <title>Capacitación DIRECTV | Panel Interactivo</title>
     <meta
       name="description"
-      content="Landing page interactiva con quiz, cards verticales, acordeón horizontal, mini juego y galería visual."
+      content="Panel interactivo de capacitación para agentes DIRECTV con calculadora de costos, accesos rápidos, mini juego y teléfonos útiles."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
-    <img
-      src="assets/estrella.svg"
-      alt=""
-      class="star-deco star-1"
-      aria-hidden="true"
-    />
-    <img
-      src="assets/estrella.svg"
-      alt=""
-      class="star-deco star-2"
-      aria-hidden="true"
-    />
-    <img
-      src="assets/planeta.svg"
-      alt=""
-      class="planet-deco"
-      aria-hidden="true"
-    />
+    <img src="assets/estrella.svg" alt="" class="star-deco star-1" aria-hidden="true" />
+    <img src="assets/estrella.svg" alt="" class="star-deco star-2" aria-hidden="true" />
+    <img src="assets/planeta.svg" alt="" class="planet-deco" aria-hidden="true" />
 
     <header class="hero">
       <div class="hero-top">
-        <span class="hero-badge">Retro Modern UI</span>
-        <span class="hero-chip">Bold • Playful • Interactive</span>
+        <span class="hero-badge">Capacitación DIRECTV</span>
+        <span class="hero-chip">Ventas • Costos • Ayuda rápida</span>
       </div>
 
       <div class="hero-grid">
         <div class="hero-copy">
-          <h1>Diseño web neubrutalista con energía visual</h1>
+          <h1>Panel divertido para agentes con herramientas reales</h1>
           <p>
-            Una landing colorida con un quiz interactivo, cards verticales y un
-            acordeón horizontal inspirado en interfaces modernas con vibra
-            retro.
+            Una base de apoyo visual para agentes DIRECTV con calculadora de costos,
+            accesos rápidos, recordatorios de venta, teléfonos útiles y un mini juego
+            para darle energía a la experiencia.
           </p>
 
           <div class="hero-actions">
-            <a href="#quiz" class="btn-primary">Ver quiz</a>
-            <a href="#features" class="mini-btn hero-secondary"
-              >Explorar layout</a
-            >
-            <a href="pages/galeria.html" class="mini-btn hero-gallery-btn"
-              >Galería</a
-            >
+            <a href="#calculator" class="btn-primary">Ir a calculadora</a>
+            <a href="#features" class="mini-btn hero-secondary">Ver accesos rápidos</a>
+            <a href="#tips" class="mini-btn hero-gallery-btn">Tips clave</a>
           </div>
         </div>
 
@@ -66,18 +47,18 @@
             </div>
 
             <div class="hero-card-content">
-              <div class="sticker">UI</div>
-              <h2>Creative interface system</h2>
+              <div class="sticker">Panel</div>
+              <h2>Herramientas que ayudan a vender mejor</h2>
               <p>
-                Bordes negros, bloques fuertes, tipografía bold y mucha
-                personalidad visual.
+                Calculá conexión y mensualidad, recordá pasos de cierre, revisá
+                productos y resolvé dudas rápidas sin perder el estilo visual.
               </p>
 
-              <div class="mini-pills" aria-label="Características">
-                <span>Quiz</span>
-                <span>Cards</span>
-                <span>Accordion</span>
-                <span>Gallery</span>
+              <div class="mini-pills">
+                <span>Calculadora</span>
+                <span>Planes</span>
+                <span>Guías</span>
+                <span>Mini juego</span>
               </div>
             </div>
           </div>
@@ -86,255 +67,210 @@
     </header>
 
     <main class="container">
-      <!-- QUIZ -->
-      <section id="quiz" class="panel section quiz-section">
+      <!-- CALCULADORA -->
+      <section id="calculator" class="panel section calculator-section">
         <div class="section-tag">01</div>
-        <h2>Quick Quiz</h2>
-        <p class="section-text">Descubrí qué estilo visual conecta más con vos.</p>
+        <h2>Calculadora de costos</h2>
+        <p class="section-text">
+          Reemplazamos el quiz por una calculadora visual por pasos, manteniendo la misma
+          experiencia divertida e interactiva.
+        </p>
 
-        <div class="quiz-shell">
-          <div id="quizIntro" class="quiz-intro">
-            <div class="intro-badge">3 preguntas</div>
+        <div class="calculator-shell">
+          <div id="calcIntro" class="calc-intro">
+            <div class="intro-badge">5 pasos</div>
             <p>
-              Este quiz te muestra qué tipo de estética digital va más con tu
-              forma de comunicar y construir una experiencia.
+              Completá los datos del cliente y obtené el detalle del costo de conexión
+              y de la mensualidad estimada.
             </p>
 
-            <div class="quiz-intro-actions">
-              <button id="startQuizBtn" class="btn-primary start-btn" type="button">
-                <img
-                  src="assets/play.svg"
-                  alt=""
-                  class="icon-play"
-                  aria-hidden="true"
-                />
-                <span>Empezar quiz</span>
+            <div class="calc-intro-actions">
+              <button id="startCalcBtn" class="btn-primary start-btn" type="button">
+                <img src="assets/play.svg" alt="" class="icon-play" aria-hidden="true" />
+                <span>Empezar cálculo</span>
               </button>
-
-              <a href="pages/galeria.html" class="mini-btn intro-gallery-btn">
-                Galería
-              </a>
             </div>
           </div>
 
-          <div
-            id="quizStepper"
-            class="quiz-stepper hidden"
-            aria-live="polite"
-          >
-            <div class="quiz-progress">
-              <div class="quiz-progress-top">
-                <span id="questionCounter">Pregunta 1 de 3</span>
-                <span id="progressPercent">33%</span>
+          <div id="calcStepper" class="calc-stepper hidden" aria-live="polite">
+            <div class="calc-progress">
+              <div class="calc-progress-top">
+                <span id="calcQuestionCounter">Paso 1 de 5</span>
+                <span id="calcProgressPercent">20%</span>
               </div>
 
               <div class="progress-bar" aria-hidden="true">
-                <div id="progressFill" class="progress-fill"></div>
+                <div id="calcProgressFill" class="progress-fill"></div>
               </div>
             </div>
 
-            <div id="quizCard" class="question-card step-question">
-              <h3 id="questionTitle"></h3>
-              <div id="answersContainer" class="answers-container"></div>
+            <div id="calcCard" class="question-card step-question">
+              <h3 id="calcQuestionTitle"></h3>
+              <div id="calcAnswersContainer" class="answers-container"></div>
 
-              <p id="quizError" class="quiz-error hidden" role="alert">
-                <img
-                  src="assets/rayo.svg"
-                  alt=""
-                  class="icon-ray"
-                  aria-hidden="true"
-                />
+              <p id="calcError" class="quiz-error hidden" role="alert">
+                <img src="assets/rayo.svg" alt="" class="icon-ray" aria-hidden="true" />
                 <span>Elegí una opción antes de continuar.</span>
               </p>
             </div>
 
             <div class="quiz-actions">
               <button
-                id="prevQuestionBtn"
+                id="prevCalcBtn"
                 class="mini-btn secondary-btn hidden"
                 type="button"
               >
                 Anterior
               </button>
 
-              <button id="nextQuestionBtn" class="btn-primary next-btn" type="button">
+              <button id="nextCalcBtn" class="btn-primary next-btn" type="button">
                 <span>Siguiente</span>
-                <img
-                  src="assets/flecha.svg"
-                  alt=""
-                  class="icon-arrow"
-                  aria-hidden="true"
-                />
+                <img src="assets/flecha.svg" alt="" class="icon-arrow" aria-hidden="true" />
               </button>
+            </div>
+          </div>
+
+          <div id="calcResult" class="calc-result hidden">
+            <div class="result-top">
+              <div class="modal-badge">Resultado</div>
+              <button id="restartCalcBtn" class="mini-btn" type="button">
+                Calcular de nuevo
+              </button>
+            </div>
+
+            <h3>Resumen del costo estimado</h3>
+
+            <div class="result-grid">
+              <div class="result-box">
+                <span class="result-label">Costo de conexión</span>
+                <strong id="installationCost">$0</strong>
+              </div>
+
+              <div class="result-box">
+                <span class="result-label">Mensual estimado</span>
+                <strong id="monthlyCost">$0</strong>
+              </div>
+            </div>
+
+            <div class="result-breakdown">
+              <h4>Detalle del cálculo</h4>
+              <ul id="resultBreakdownList"></ul>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- CARDS -->
+      <!-- ACCESOS RÁPIDOS -->
       <section id="features" class="panel section vertical-cards-section">
         <div class="section-tag">02</div>
-        <h2>Cards verticales</h2>
+        <h2>Accesos rápidos</h2>
         <p class="section-text">
-          Cada card abre una experiencia diferente en popup.
+          Cada card abre una ayuda distinta: planes, proceso, teléfonos y un mini juego
+          para mantener la página divertida.
         </p>
 
         <div class="vertical-cards">
           <article class="v-card">
-            <img
-              src="assets/blob.svg"
-              alt=""
-              class="blob-bg"
-              aria-hidden="true"
-            />
-            <img
-              src="assets/estrella.svg"
-              alt=""
-              class="mini-star mini-star-1"
-              aria-hidden="true"
-            />
+            <img src="assets/blob.svg" alt="" class="blob-bg" aria-hidden="true" />
+            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-1" aria-hidden="true" />
 
             <div class="v-card-top">
-              <span class="card-badge">Brand</span>
+              <span class="card-badge">Planes</span>
               <div class="v-card-icon" aria-hidden="true">✦</div>
             </div>
 
-            <h3>Branding</h3>
-            <p>Pop up con título, texto e imagen principal.</p>
+            <h3>Planes y adicionales</h3>
+            <p>
+              Resumen rápido de planes base, deco extra, fútbol y GO Box.
+            </p>
 
-            <button
-              class="mini-btn feature-open-btn"
-              data-modal="featureA"
-              type="button"
-            >
-              Explorar
+            <button class="mini-btn feature-open-btn" data-modal="featureA" type="button">
+              Abrir
             </button>
           </article>
 
           <article class="v-card">
-            <img
-              src="assets/blob.svg"
-              alt=""
-              class="blob-bg"
-              aria-hidden="true"
-            />
-            <img
-              src="assets/estrella.svg"
-              alt=""
-              class="mini-star mini-star-2"
-              aria-hidden="true"
-            />
+            <img src="assets/blob.svg" alt="" class="blob-bg" aria-hidden="true" />
+            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-2" aria-hidden="true" />
 
             <div class="v-card-top">
-              <span class="card-badge">UI</span>
+              <span class="card-badge">Proceso</span>
               <div class="v-card-icon" aria-hidden="true">☻</div>
             </div>
 
-            <h3>UI Design</h3>
-            <p>Pop up con texto y acordeón expandible.</p>
+            <h3>Proceso de venta</h3>
+            <p>
+              Checkpoints útiles antes de cerrar la venta y cargar correctamente.
+            </p>
 
-            <button
-              class="mini-btn feature-open-btn"
-              data-modal="featureB"
-              type="button"
-            >
-              Explorar
+            <button class="mini-btn feature-open-btn" data-modal="featureB" type="button">
+              Abrir
             </button>
           </article>
 
           <article class="v-card">
-            <img
-              src="assets/blob.svg"
-              alt=""
-              class="blob-bg"
-              aria-hidden="true"
-            />
-            <img
-              src="assets/estrella.svg"
-              alt=""
-              class="mini-star mini-star-3"
-              aria-hidden="true"
-            />
+            <img src="assets/blob.svg" alt="" class="blob-bg" aria-hidden="true" />
+            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-3" aria-hidden="true" />
 
             <div class="v-card-top">
-              <span class="card-badge">Game</span>
+              <span class="card-badge">Fun</span>
               <div class="v-card-icon" aria-hidden="true">⚡</div>
             </div>
 
-            <h3>Mini Juego</h3>
-            <p>Pop up con un minijuego hecho en JavaScript.</p>
+            <h3>Mini juego</h3>
+            <p>
+              Una pausa divertida para sumar puntos atrapando la estrella.
+            </p>
 
-            <button
-              class="mini-btn feature-open-btn"
-              data-modal="featureC"
-              type="button"
-            >
-              Explorar
+            <button class="mini-btn feature-open-btn" data-modal="featureC" type="button">
+              Jugar
             </button>
           </article>
 
           <article class="v-card">
-            <img
-              src="assets/blob.svg"
-              alt=""
-              class="blob-bg"
-              aria-hidden="true"
-            />
-            <img
-              src="assets/estrella.svg"
-              alt=""
-              class="mini-star mini-star-4"
-              aria-hidden="true"
-            />
+            <img src="assets/blob.svg" alt="" class="blob-bg" aria-hidden="true" />
+            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-4" aria-hidden="true" />
 
             <div class="v-card-top">
-              <span class="card-badge">Gallery</span>
+              <span class="card-badge">Ayuda</span>
               <div class="v-card-icon" aria-hidden="true">★</div>
             </div>
 
-            <h3>Mini Galería</h3>
-            <p>Pop up con una mini galería de imágenes navegable.</p>
+            <h3>Teléfonos útiles</h3>
+            <p>
+              Accesos rápidos a soporte, ventas y cobranzas.
+            </p>
 
-            <button
-              class="mini-btn feature-open-btn"
-              data-modal="featureD"
-              type="button"
-            >
-              Explorar
+            <button class="mini-btn feature-open-btn" data-modal="featureD" type="button">
+              Ver teléfonos
             </button>
           </article>
         </div>
       </section>
 
-      <!-- ACORDEÓN HORIZONTAL -->
-      <section class="panel section accordion-section">
+      <!-- TIPS -->
+      <section id="tips" class="panel section accordion-section">
         <div class="section-tag">03</div>
-        <h2>Acordeón horizontal</h2>
+        <h2>Tips clave para agentes</h2>
         <p class="section-text">
-          Paneles que se expanden de forma fluida y en mobile pasan a formato
-          vertical.
+          Recordatorios operativos para vender con más claridad y evitar errores.
         </p>
 
         <div class="horizontal-accordion" id="horizontalAccordion">
           <article class="h-accordion-item active" data-index="0">
             <button class="h-accordion-trigger" type="button">
               <span class="h-accordion-number">01</span>
-              <span class="h-accordion-label">Concepto</span>
-              <img
-                src="assets/flecha.svg"
-                alt=""
-                class="accordion-arrow"
-                aria-hidden="true"
-              />
+              <span class="h-accordion-label">Cliente</span>
+              <img src="assets/flecha.svg" alt="" class="accordion-arrow" aria-hidden="true" />
             </button>
 
             <div class="h-accordion-panel">
               <div class="panel-inner">
-                <span class="panel-pill">Base visual</span>
-                <h3>Qué hace especial al neubrutalismo</h3>
+                <span class="panel-pill">Validación</span>
+                <h3>Confirmá el tipo de cliente</h3>
                 <p>
-                  Mezcla colores fuertes, bordes negros, bloques grandes y una
-                  estética simple pero con muchísimo carácter.
+                  Antes de presupuestar, verificá si es cliente nuevo o existente.
+                  Ese dato cambia el costo de conexión y ordena mejor toda la conversación.
                 </p>
               </div>
             </div>
@@ -343,22 +279,17 @@
           <article class="h-accordion-item" data-index="1">
             <button class="h-accordion-trigger" type="button">
               <span class="h-accordion-number">02</span>
-              <span class="h-accordion-label">Paleta</span>
-              <img
-                src="assets/flecha.svg"
-                alt=""
-                class="accordion-arrow"
-                aria-hidden="true"
-              />
+              <span class="h-accordion-label">Oferta</span>
+              <img src="assets/flecha.svg" alt="" class="accordion-arrow" aria-hidden="true" />
             </button>
 
             <div class="h-accordion-panel">
               <div class="panel-inner">
-                <span class="panel-pill">Color system</span>
-                <h3>Colores con contraste inmediato</h3>
+                <span class="panel-pill">Presentación</span>
+                <h3>Explicá el armado del costo</h3>
                 <p>
-                  Amarillo, rosa, turquesa, lila y blanco ayudan a construir una
-                  interfaz con presencia y ritmo visual muy rápido.
+                  Separá claramente conexión, plan base, decos extra y adicionales.
+                  Cuando el cliente entiende el detalle, baja la fricción.
                 </p>
               </div>
             </div>
@@ -367,23 +298,17 @@
           <article class="h-accordion-item" data-index="2">
             <button class="h-accordion-trigger" type="button">
               <span class="h-accordion-number">03</span>
-              <span class="h-accordion-label">Uso ideal</span>
-              <img
-                src="assets/flecha.svg"
-                alt=""
-                class="accordion-arrow"
-                aria-hidden="true"
-              />
+              <span class="h-accordion-label">Cierre</span>
+              <img src="assets/flecha.svg" alt="" class="accordion-arrow" aria-hidden="true" />
             </button>
 
             <div class="h-accordion-panel">
               <div class="panel-inner">
-                <span class="panel-pill">Best fit</span>
-                <h3>Cuándo usar este estilo</h3>
+                <span class="panel-pill">Checklist</span>
+                <h3>No cierres sin revisar esto</h3>
                 <p>
-                  Funciona muy bien para portfolios, productos creativos,
-                  landings visuales y marcas que quieren verse distintas y
-                  memorables.
+                  Dirección, horario, cantidad de decos, plan elegido, adicionales
+                  y datos del titular. Un cierre prolijo evita retrabajo.
                 </p>
               </div>
             </div>
@@ -392,71 +317,47 @@
       </section>
     </main>
 
-    <!-- MODAL QUIZ -->
-    <div
-      id="quizModal"
-      class="modal hidden"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modalResultTitle"
-    >
-      <div id="modalBackdrop" class="modal-backdrop"></div>
-
-      <div class="modal-card">
-        <button
-          id="closeModalBtn"
-          class="modal-close"
-          type="button"
-          aria-label="Cerrar"
-        >
-          ×
-        </button>
-
-        <div class="modal-badge">Resultado</div>
-        <h3 id="modalResultTitle"></h3>
-        <p id="modalResultText"></p>
-
-        <div class="modal-actions">
-          <button id="restartQuizBtn" class="btn-primary" type="button">
-            Empezar de nuevo
-          </button>
-          <button id="closeResultBtn" class="mini-btn" type="button">
-            Cerrar
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- MODAL FEATURES -->
     <div
       id="featureOverlay"
       class="modal hidden"
       role="dialog"
       aria-modal="true"
-      aria-label="Experiencias interactivas"
+      aria-label="Accesos rápidos"
     >
       <div class="modal-backdrop feature-backdrop"></div>
 
       <!-- A -->
       <div class="feature-modal hidden" id="featureA">
-        <button
-          class="modal-close feature-close-btn"
-          type="button"
-          aria-label="Cerrar"
-        >
+        <button class="modal-close feature-close-btn" type="button" aria-label="Cerrar">
           ×
         </button>
-        <div class="modal-badge">Branding</div>
-        <h3>Identidad con impacto</h3>
+
+        <div class="modal-badge">Planes</div>
+        <h3>Resumen rápido de productos</h3>
         <p>
-          Un sistema visual fuerte combina color, forma, jerarquía y repetición.
-          Este popup muestra contenido editorial con una imagen destacada.
+          Este bloque sirve como apoyo rápido en la conversación comercial.
         </p>
-        <img
-          src="images/IMG-20260408-WA0000.jpg"
-          alt="Composición visual de branding"
-          class="feature-image"
-        />
+
+        <div class="info-grid">
+          <div class="info-box">
+            <h4>Plan Bronce</h4>
+            <p>Plan base económico para ofrecer una opción de entrada.</p>
+          </div>
+          <div class="info-box">
+            <h4>Plan Plata</h4>
+            <p>Opción media con mejor equilibrio entre costo y valor percibido.</p>
+          </div>
+          <div class="info-box">
+            <h4>Plan Oro</h4>
+            <p>Plan más robusto para clientes que buscan experiencia más completa.</p>
+          </div>
+          <div class="info-box">
+            <h4>Adicionales</h4>
+            <p>Fútbol, GO Box y decos extra modifican el total final.</p>
+          </div>
+        </div>
+
         <div class="modal-actions">
           <button class="mini-btn feature-close-btn" type="button">Cerrar</button>
         </div>
@@ -464,48 +365,54 @@
 
       <!-- B -->
       <div class="feature-modal hidden" id="featureB">
-        <button
-          class="modal-close feature-close-btn"
-          type="button"
-          aria-label="Cerrar"
-        >
+        <button class="modal-close feature-close-btn" type="button" aria-label="Cerrar">
           ×
         </button>
-        <div class="modal-badge">UI Design</div>
-        <h3>Acordeón de contenido</h3>
+
+        <div class="modal-badge">Proceso</div>
+        <h3>Guía rápida de cierre</h3>
         <p>
-          Este módulo muestra bloques de información con acordeón dentro del
-          popup.
+          Acordeón interno con los pasos que más ayudan a ordenar la gestión.
         </p>
 
         <div class="inner-accordion">
           <div class="inner-accordion-item active">
             <button class="inner-accordion-trigger" type="button">
-              Jerarquía visual
+              1. Detectar necesidad
             </button>
             <div class="inner-accordion-content">
-              El contraste entre tamaños, color y spacing define el ritmo de una
-              interfaz.
+              Confirmá qué busca el cliente, cuántos televisores quiere conectar
+              y si prioriza precio o contenido.
             </div>
           </div>
 
           <div class="inner-accordion-item">
             <button class="inner-accordion-trigger" type="button">
-              Componentes
+              2. Presentar propuesta
             </button>
             <div class="inner-accordion-content">
-              Botones, cards y badges deben sentirse parte del mismo sistema
-              visual.
+              Explicá plan, adicionales, costo de conexión y mensualidad sin mezclar
+              conceptos.
             </div>
           </div>
 
           <div class="inner-accordion-item">
             <button class="inner-accordion-trigger" type="button">
-              Usabilidad
+              3. Validar datos
             </button>
             <div class="inner-accordion-content">
-              Una interfaz puede ser expresiva y seguir siendo clara, usable y
-              consistente.
+              Revisá nombre del titular, documento, dirección, contacto y horario
+              disponible para instalación.
+            </div>
+          </div>
+
+          <div class="inner-accordion-item">
+            <button class="inner-accordion-trigger" type="button">
+              4. Cerrar y confirmar
+            </button>
+            <div class="inner-accordion-content">
+              Repetí al cliente el detalle final antes de cerrar: plan, adicionales,
+              cantidad de decos y costo total estimado.
             </div>
           </div>
         </div>
@@ -517,16 +424,15 @@
 
       <!-- C -->
       <div class="feature-modal hidden" id="featureC">
-        <button
-          class="modal-close feature-close-btn"
-          type="button"
-          aria-label="Cerrar"
-        >
+        <button class="modal-close feature-close-btn" type="button" aria-label="Cerrar">
           ×
         </button>
-        <div class="modal-badge">Mini Game</div>
+
+        <div class="modal-badge">Mini juego</div>
         <h3>Atrapá la estrella</h3>
-        <p>Tocá el botón para sumar puntos. Tenés 10 segundos.</p>
+        <p>
+          Hacé clic sobre la estrella todas las veces que puedas en 10 segundos.
+        </p>
 
         <div class="game-panel">
           <div class="game-stats">
@@ -550,6 +456,8 @@
               Empezar juego
             </button>
           </div>
+
+          <div id="gameResult" class="game-result hidden"></div>
         </div>
 
         <div class="modal-actions">
@@ -559,45 +467,32 @@
 
       <!-- D -->
       <div class="feature-modal hidden" id="featureD">
-        <button
-          class="modal-close feature-close-btn"
-          type="button"
-          aria-label="Cerrar"
-        >
+        <button class="modal-close feature-close-btn" type="button" aria-label="Cerrar">
           ×
         </button>
-        <div class="modal-badge">Mini Gallery</div>
-        <h3>Preview rápido</h3>
-        <p>
-          Una mini galería dentro del popup con navegación anterior y siguiente.
-        </p>
 
-        <div class="mini-gallery">
-          <button
-            id="miniPrevBtn"
-            class="gallery-nav small-nav"
-            type="button"
-            aria-label="Imagen anterior"
-          >
-            ←
-          </button>
+        <div class="modal-badge">Teléfonos útiles</div>
+        <h3>Contactos rápidos</h3>
+        <p>Bloque visual para tener a mano los números más usados.</p>
 
-          <div class="mini-gallery-frame">
-            <img
-              id="miniGalleryImage"
-              src="images/IMG-20260408-WA0001.jpg"
-              alt="Mini galería"
-            />
-          </div>
+        <div class="phones-grid">
+          <a href="tel:08001234567" class="phone-card">
+            <span class="phone-tag">Soporte</span>
+            <strong>0800 123 4567</strong>
+            <span>Soporte técnico</span>
+          </a>
 
-          <button
-            id="miniNextBtn"
-            class="gallery-nav small-nav"
-            type="button"
-            aria-label="Imagen siguiente"
-          >
-            →
-          </button>
+          <a href="tel:08007654321" class="phone-card">
+            <span class="phone-tag">Ventas</span>
+            <strong>0800 765 4321</strong>
+            <span>Ventas / Altas</span>
+          </a>
+
+          <a href="tel:08001112222" class="phone-card">
+            <span class="phone-tag">Cobranzas</span>
+            <strong>0800 111 2222</strong>
+            <span>Pagos y cobranzas</span>
+          </a>
         </div>
 
         <div class="modal-actions">
