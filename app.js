@@ -1,51 +1,80 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const quizData = [
+  const calcData = [
     {
-      question: "1. ¿Qué te atrae más en una web?",
+      key: "clientType",
+      question: "1. ¿Qué tipo de cliente es?",
       answers: [
-        { text: "Colores vibrantes", value: "A" },
-        { text: "Orden y minimalismo", value: "B" },
-        { text: "Movimiento y efectos", value: "C" },
+        { text: "Cliente nuevo", value: "nuevo" },
+        { text: "Cliente existente", value: "existente" },
       ],
     },
     {
-      question: "2. ¿Qué tipo de botones preferís?",
+      key: "goBox",
+      question: "2. ¿Incluye GO Box?",
       answers: [
-        { text: "Grandes y llamativos", value: "A" },
-        { text: "Simples y discretos", value: "B" },
-        { text: "Con animaciones", value: "C" },
+        { text: "Sí", value: "si" },
+        { text: "No", value: "no" },
       ],
     },
     {
-      question: "3. ¿Qué sensación querés transmitir?",
+      key: "football",
+      question: "3. ¿Agrega fútbol?",
       answers: [
-        { text: "Energía y creatividad", value: "A" },
-        { text: "Confianza y claridad", value: "B" },
-        { text: "Innovación y dinamismo", value: "C" },
+        { text: "Sí", value: "si" },
+        { text: "No", value: "no" },
+      ],
+    },
+    {
+      key: "plan",
+      question: "4. ¿Qué plan elige?",
+      answers: [
+        { text: "Bronce", value: "bronce" },
+        { text: "Plata", value: "plata" },
+        { text: "Oro", value: "oro" },
+      ],
+    },
+    {
+      key: "decos",
+      question: "5. ¿Cuántos decos extra necesita?",
+      answers: [
+        { text: "0 decos extra", value: "0" },
+        { text: "1 deco extra", value: "1" },
+        { text: "2 decos extra", value: "2" },
+        { text: "3 decos extra", value: "3" },
       ],
     },
   ];
 
-  const startQuizBtn = document.getElementById("startQuizBtn");
-  const quizIntro = document.getElementById("quizIntro");
-  const quizStepper = document.getElementById("quizStepper");
-  const questionCounter = document.getElementById("questionCounter");
-  const progressPercent = document.getElementById("progressPercent");
-  const progressFill = document.getElementById("progressFill");
-  const questionTitle = document.getElementById("questionTitle");
-  const answersContainer = document.getElementById("answersContainer");
-  const nextQuestionBtn = document.getElementById("nextQuestionBtn");
-  const prevQuestionBtn = document.getElementById("prevQuestionBtn");
-  const quizError = document.getElementById("quizError");
-  const quizCard = document.getElementById("quizCard");
+  const PRICES = {
+    installationNew: 4500,
+    installationExisting: 2500,
+    goBoxInstallation: 1200,
+    footballMonthly: 3200,
+    extraDecoMonthly: 900,
+    planMonthly: {
+      bronce: 5200,
+      plata: 7200,
+      oro: 9800,
+    },
+  };
 
-  const quizModal = document.getElementById("quizModal");
-  const modalBackdrop = document.getElementById("modalBackdrop");
-  const modalResultTitle = document.getElementById("modalResultTitle");
-  const modalResultText = document.getElementById("modalResultText");
-  const closeModalBtn = document.getElementById("closeModalBtn");
-  const closeResultBtn = document.getElementById("closeResultBtn");
-  const restartQuizBtn = document.getElementById("restartQuizBtn");
+  const startCalcBtn = document.getElementById("startCalcBtn");
+  const calcIntro = document.getElementById("calcIntro");
+  const calcStepper = document.getElementById("calcStepper");
+  const calcQuestionCounter = document.getElementById("calcQuestionCounter");
+  const calcProgressPercent = document.getElementById("calcProgressPercent");
+  const calcProgressFill = document.getElementById("calcProgressFill");
+  const calcQuestionTitle = document.getElementById("calcQuestionTitle");
+  const calcAnswersContainer = document.getElementById("calcAnswersContainer");
+  const nextCalcBtn = document.getElementById("nextCalcBtn");
+  const prevCalcBtn = document.getElementById("prevCalcBtn");
+  const calcError = document.getElementById("calcError");
+  const calcCard = document.getElementById("calcCard");
+  const calcResult = document.getElementById("calcResult");
+  const restartCalcBtn = document.getElementById("restartCalcBtn");
+  const installationCost = document.getElementById("installationCost");
+  const monthlyCost = document.getElementById("monthlyCost");
+  const resultBreakdownList = document.getElementById("resultBreakdownList");
 
   const accordionItems = document.querySelectorAll(".h-accordion-item");
 
@@ -62,207 +91,190 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameArea = document.getElementById("gameArea");
   const gameScore = document.getElementById("gameScore");
   const gameTimer = document.getElementById("gameTimer");
+  const gameResult = document.getElementById("gameResult");
 
-  const miniGalleryImages = [
-    "images/IMG-20260408-WA0001.jpg",
-    "images/IMG-20260408-WA0002.jpg",
-    "images/IMG-20260408-WA0003.jpg",
-    "images/IMG-20260408-WA0004.jpg",
-  ];
-
-  const miniGalleryImage = document.getElementById("miniGalleryImage");
-  const miniPrevBtn = document.getElementById("miniPrevBtn");
-  const miniNextBtn = document.getElementById("miniNextBtn");
-
-  let currentQuestionIndex = 0;
-  let selectedAnswer = null;
-  let userAnswers = [];
+  let currentCalcIndex = 0;
+  let selectedCalcAnswer = null;
+  let calcAnswers = {};
 
   let score = 0;
   let timeLeft = 10;
   let gameInterval = null;
   let gameRunning = false;
 
-  let miniGalleryIndex = 0;
+  function formatCurrency(value) {
+    return `$${value.toLocaleString("es-UY")}`;
+  }
 
   function lockBodyScroll() {
     document.body.style.overflow = "hidden";
   }
 
   function unlockBodyScroll() {
-    const quizModalOpen = quizModal && !quizModal.classList.contains("hidden");
-    const featureOpen =
-      featureOverlay && !featureOverlay.classList.contains("hidden");
-
-    if (!quizModalOpen && !featureOpen) {
+    const featureOpen = featureOverlay && !featureOverlay.classList.contains("hidden");
+    if (!featureOpen) {
       document.body.style.overflow = "";
     }
   }
 
-  function startQuiz() {
-    currentQuestionIndex = 0;
-    selectedAnswer = null;
-    userAnswers = [];
-    quizError?.classList.add("hidden");
-    quizIntro?.classList.add("hidden");
-    quizStepper?.classList.remove("hidden");
-    renderQuestion();
+  function startCalculator() {
+    currentCalcIndex = 0;
+    selectedCalcAnswer = null;
+    calcAnswers = {};
+    calcError?.classList.add("hidden");
+    calcIntro?.classList.add("hidden");
+    calcResult?.classList.add("hidden");
+    calcStepper?.classList.remove("hidden");
+    renderCalcQuestion();
   }
 
-  function updateProgress() {
-    const currentStep = currentQuestionIndex + 1;
-    const progress = Math.round((currentStep / quizData.length) * 100);
+  function updateCalcProgress() {
+    const currentStep = currentCalcIndex + 1;
+    const progress = Math.round((currentStep / calcData.length) * 100);
 
-    if (questionCounter) {
-      questionCounter.textContent = `Pregunta ${currentStep} de ${quizData.length}`;
-    }
-    if (progressPercent) {
-      progressPercent.textContent = `${progress}%`;
-    }
-    if (progressFill) {
-      progressFill.style.width = `${progress}%`;
-    }
+    calcQuestionCounter.textContent = `Paso ${currentStep} de ${calcData.length}`;
+    calcProgressPercent.textContent = `${progress}%`;
+    calcProgressFill.style.width = `${progress}%`;
   }
 
-  function updateButtons() {
-    if (prevQuestionBtn) {
-      prevQuestionBtn.classList.toggle("hidden", currentQuestionIndex === 0);
-    }
-
-    const nextLabel = nextQuestionBtn?.querySelector("span");
-    if (nextLabel) {
-      nextLabel.textContent =
-        currentQuestionIndex === quizData.length - 1
-          ? "Ver resultado"
-          : "Siguiente";
-    }
+  function updateCalcButtons() {
+    prevCalcBtn.classList.toggle("hidden", currentCalcIndex === 0);
+    const nextLabel = nextCalcBtn.querySelector("span");
+    nextLabel.textContent =
+      currentCalcIndex === calcData.length - 1 ? "Ver resultado" : "Siguiente";
   }
 
-  function renderQuestion() {
-    const currentQuestion = quizData[currentQuestionIndex];
-    selectedAnswer = userAnswers[currentQuestionIndex] || null;
+  function renderCalcQuestion() {
+    const currentQuestion = calcData[currentCalcIndex];
+    selectedCalcAnswer = calcAnswers[currentQuestion.key] || null;
 
-    quizCard?.classList.add("animating");
+    calcCard.classList.add("animating");
 
     window.setTimeout(() => {
-      updateProgress();
-      updateButtons();
+      updateCalcProgress();
+      updateCalcButtons();
+      calcQuestionTitle.textContent = currentQuestion.question;
+      calcAnswersContainer.innerHTML = "";
 
-      if (questionTitle) {
-        questionTitle.textContent = currentQuestion.question;
-      }
+      currentQuestion.answers.forEach((answer) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "answer-option";
+        button.textContent = answer.text;
 
-      if (answersContainer) {
-        answersContainer.innerHTML = "";
+        if (selectedCalcAnswer === answer.value) {
+          button.classList.add("selected");
+        }
 
-        currentQuestion.answers.forEach((answer) => {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className = "answer-option";
-          button.textContent = answer.text;
+        button.addEventListener("click", () => {
+          selectedCalcAnswer = answer.value;
+          calcError.classList.add("hidden");
 
-          if (selectedAnswer === answer.value) {
-            button.classList.add("selected");
-          }
-
-          button.addEventListener("click", () => {
-            selectedAnswer = answer.value;
-            quizError?.classList.add("hidden");
-
-            document.querySelectorAll(".answer-option").forEach((option) => {
-              option.classList.remove("selected");
-            });
-
-            button.classList.add("selected");
+          document.querySelectorAll(".answer-option").forEach((option) => {
+            option.classList.remove("selected");
           });
 
-          answersContainer.appendChild(button);
+          button.classList.add("selected");
         });
-      }
 
-      quizCard?.classList.remove("animating");
+        calcAnswersContainer.appendChild(button);
+      });
+
+      calcCard.classList.remove("animating");
     }, 120);
   }
 
-  function getResultContent() {
-    const countA = userAnswers.filter((a) => a === "A").length;
-    const countB = userAnswers.filter((a) => a === "B").length;
-    const countC = userAnswers.filter((a) => a === "C").length;
+  function calculateCosts() {
+    const installationBase =
+      calcAnswers.clientType === "nuevo"
+        ? PRICES.installationNew
+        : PRICES.installationExisting;
 
-    if (countA >= countB && countA >= countC) {
-      return {
-        title: "✨ Tu estilo es: Neubrutalismo vibrante",
-        text: "Te atraen los colores fuertes, la energía visual y las interfaces con personalidad. Tu estética ideal combina impacto, contraste y un look muy expresivo.",
-      };
-    }
+    const goBoxInstallation =
+      calcAnswers.goBox === "si" ? PRICES.goBoxInstallation : 0;
 
-    if (countB >= countA && countB >= countC) {
-      return {
-        title: "🧩 Tu estilo es: Minimalismo estructurado",
-        text: "Preferís claridad, orden y equilibrio visual. Te funcionan mejor las interfaces limpias, directas y con una sensación de control más refinada.",
-      };
-    }
+    const planMonthly = PRICES.planMonthly[calcAnswers.plan] || 0;
+    const footballMonthly =
+      calcAnswers.football === "si" ? PRICES.footballMonthly : 0;
+
+    const decoCount = Number(calcAnswers.decos || 0);
+    const extraDecosMonthly = decoCount * PRICES.extraDecoMonthly;
+
+    const totalInstallation = installationBase + goBoxInstallation;
+    const totalMonthly = planMonthly + footballMonthly + extraDecosMonthly;
 
     return {
-      title: "🚀 Tu estilo es: Futurismo dinámico",
-      text: "Buscás innovación, movimiento y una experiencia que se sienta viva. Te atraen las interfaces modernas, experimentales y con fuerte energía tecnológica.",
+      totalInstallation,
+      totalMonthly,
+      breakdown: [
+        `Conexión base: ${formatCurrency(installationBase)}`,
+        goBoxInstallation > 0
+          ? `GO Box en conexión: ${formatCurrency(goBoxInstallation)}`
+          : `GO Box en conexión: ${formatCurrency(0)}`,
+        `Plan ${calcAnswers.plan}: ${formatCurrency(planMonthly)}`,
+        footballMonthly > 0
+          ? `Adicional fútbol: ${formatCurrency(footballMonthly)}`
+          : `Adicional fútbol: ${formatCurrency(0)}`,
+        `Decos extra (${decoCount}): ${formatCurrency(extraDecosMonthly)}`,
+      ],
     };
   }
 
-  function showResult() {
-    if (!quizModal) return;
+  function showCalcResult() {
+    const result = calculateCosts();
 
-    const result = getResultContent();
-    if (modalResultTitle) modalResultTitle.textContent = result.title;
-    if (modalResultText) modalResultText.textContent = result.text;
+    installationCost.textContent = formatCurrency(result.totalInstallation);
+    monthlyCost.textContent = formatCurrency(result.totalMonthly);
+    resultBreakdownList.innerHTML = "";
 
-    quizModal.classList.remove("hidden");
-    lockBodyScroll();
+    result.breakdown.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      resultBreakdownList.appendChild(li);
+    });
+
+    calcStepper.classList.add("hidden");
+    calcResult.classList.remove("hidden");
   }
 
-  function nextQuestion() {
-    if (!selectedAnswer) {
-      quizError?.classList.remove("hidden");
+  function nextCalcQuestion() {
+    const currentQuestion = calcData[currentCalcIndex];
+
+    if (!selectedCalcAnswer) {
+      calcError.classList.remove("hidden");
       return;
     }
 
-    userAnswers[currentQuestionIndex] = selectedAnswer;
+    calcAnswers[currentQuestion.key] = selectedCalcAnswer;
 
-    if (currentQuestionIndex < quizData.length - 1) {
-      currentQuestionIndex += 1;
-      renderQuestion();
+    if (currentCalcIndex < calcData.length - 1) {
+      currentCalcIndex += 1;
+      renderCalcQuestion();
       return;
     }
 
-    showResult();
+    showCalcResult();
   }
 
-  function prevQuestion() {
-    if (currentQuestionIndex === 0) return;
+  function prevCalcQuestion() {
+    if (currentCalcIndex === 0) return;
 
-    userAnswers[currentQuestionIndex] = selectedAnswer;
-    currentQuestionIndex -= 1;
-    renderQuestion();
-    quizError?.classList.add("hidden");
+    const currentQuestion = calcData[currentCalcIndex];
+    calcAnswers[currentQuestion.key] = selectedCalcAnswer;
+    currentCalcIndex -= 1;
+    renderCalcQuestion();
+    calcError.classList.add("hidden");
   }
 
-  function closeModal() {
-    if (!quizModal) return;
-    quizModal.classList.add("hidden");
-    unlockBodyScroll();
-  }
-
-  function resetQuiz() {
-    closeModal();
-    currentQuestionIndex = 0;
-    selectedAnswer = null;
-    userAnswers = [];
-    quizError?.classList.add("hidden");
-    quizStepper?.classList.add("hidden");
-    quizIntro?.classList.remove("hidden");
-    if (progressFill) {
-      progressFill.style.width = "0%";
-    }
+  function resetCalculator() {
+    currentCalcIndex = 0;
+    selectedCalcAnswer = null;
+    calcAnswers = {};
+    calcError.classList.add("hidden");
+    calcResult.classList.add("hidden");
+    calcStepper.classList.add("hidden");
+    calcIntro.classList.remove("hidden");
+    calcProgressFill.style.width = "0%";
   }
 
   function setupAccordion() {
@@ -298,10 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     lockBodyScroll();
-
-    if (id === "featureD") {
-      updateMiniGallery();
-    }
   }
 
   function closeFeatureModal() {
@@ -334,7 +342,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       trigger.addEventListener("click", () => {
         const isActive = item.classList.contains("active");
-
         innerAccordionItems.forEach((el) => el.classList.remove("active"));
 
         if (!isActive) {
@@ -345,12 +352,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateGameStats() {
-    if (gameScore) {
-      gameScore.textContent = `Puntos: ${score}`;
-    }
-    if (gameTimer) {
-      gameTimer.textContent = `Tiempo: ${timeLeft}`;
-    }
+    gameScore.textContent = `Puntos: ${score}`;
+    gameTimer.textContent = `Tiempo: ${timeLeft}`;
   }
 
   function moveTarget() {
@@ -369,11 +372,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function startGame() {
-    if (!gameTarget) return;
-
     score = 0;
     timeLeft = 10;
     gameRunning = true;
+    gameResult.classList.add("hidden");
+    gameResult.textContent = "";
     updateGameStats();
     gameTarget.classList.remove("hidden");
     moveTarget();
@@ -385,8 +388,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (timeLeft <= 0) {
         stopGame();
-        if (gameTimer) gameTimer.textContent = "Tiempo: 0";
-        window.alert(`Juego terminado. Tu puntaje fue: ${score}`);
+        gameTimer.textContent = "Tiempo: 0";
+        gameResult.textContent = `¡Tiempo! Hiciste ${score} punto${score === 1 ? "" : "s"}.`;
+        gameResult.classList.remove("hidden");
       }
     }, 1000);
   }
@@ -394,9 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function stopGame() {
     gameRunning = false;
     clearInterval(gameInterval);
-    if (gameTarget) {
-      gameTarget.classList.add("hidden");
-    }
+    gameTarget?.classList.add("hidden");
   }
 
   function setupGame() {
@@ -410,35 +412,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function updateMiniGallery() {
-    if (!miniGalleryImage) return;
-    miniGalleryImage.src = miniGalleryImages[miniGalleryIndex];
-    miniGalleryImage.alt = `Mini galería ${miniGalleryIndex + 1}`;
-  }
-
-  function setupMiniGallery() {
-    miniPrevBtn?.addEventListener("click", () => {
-      miniGalleryIndex =
-        (miniGalleryIndex - 1 + miniGalleryImages.length) %
-        miniGalleryImages.length;
-      updateMiniGallery();
-    });
-
-    miniNextBtn?.addEventListener("click", () => {
-      miniGalleryIndex = (miniGalleryIndex + 1) % miniGalleryImages.length;
-      updateMiniGallery();
-    });
-  }
-
   function setupKeyboardSupport() {
     document.addEventListener("keydown", (event) => {
-      const isQuizModalOpen = quizModal && !quizModal.classList.contains("hidden");
       const isFeatureOpen =
         featureOverlay && !featureOverlay.classList.contains("hidden");
-
-      if (event.key === "Escape" && isQuizModalOpen) {
-        closeModal();
-      }
 
       if (event.key === "Escape" && isFeatureOpen) {
         closeFeatureModal();
@@ -446,19 +423,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  startQuizBtn?.addEventListener("click", startQuiz);
-  nextQuestionBtn?.addEventListener("click", nextQuestion);
-  prevQuestionBtn?.addEventListener("click", prevQuestion);
-
-  closeModalBtn?.addEventListener("click", closeModal);
-  closeResultBtn?.addEventListener("click", closeModal);
-  restartQuizBtn?.addEventListener("click", resetQuiz);
-  modalBackdrop?.addEventListener("click", closeModal);
+  startCalcBtn?.addEventListener("click", startCalculator);
+  nextCalcBtn?.addEventListener("click", nextCalcQuestion);
+  prevCalcBtn?.addEventListener("click", prevCalcQuestion);
+  restartCalcBtn?.addEventListener("click", resetCalculator);
 
   setupAccordion();
   setupFeatureModals();
   setupInnerAccordion();
   setupGame();
-  setupMiniGallery();
   setupKeyboardSupport();
 });
