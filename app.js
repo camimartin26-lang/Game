@@ -1,24 +1,44 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const calcData = [
+  const PLAN_MENSUAL = {
+    plata: 990,
+    plata_promo_j: 890,
+    oro: 1190,
+  };
+
+  const EXTRA_DECO = 280;
+  const FUTBOL_MENSUAL = 300;
+
+  function conexionBase(tipo, decos) {
+    if (decos === 1 || decos === 2) return tipo === "p12" ? 690 : 0;
+    if (decos === 3) return tipo === "p12" ? 1789 : 1099;
+    if (decos === 4) return tipo === "p12" ? 2888 : 2198;
+    return 0;
+  }
+
+  function conexionGoBoxExtra(tipo) {
+    return tipo === "p12" ? 1000 : 500;
+  }
+
+  const screens = [
     {
-      key: "clientType",
-      question: "1. ¿Qué tipo de cliente es?",
+      key: "tipo",
+      title: "Pregunta 1 · ¿Tipo de cliente?",
       answers: [
-        { text: "Cliente nuevo", value: "nuevo" },
-        { text: "Cliente existente", value: "existente" },
+        { text: "P1 o P2", value: "p12" },
+        { text: "P3 o TC", value: "p3tc" },
       ],
     },
     {
-      key: "goBox",
-      question: "2. ¿Incluye GO Box?",
+      key: "gobox",
+      title: "Pregunta 2 · ¿Quiere GO Box?",
       answers: [
         { text: "Sí", value: "si" },
         { text: "No", value: "no" },
       ],
     },
     {
-      key: "football",
-      question: "3. ¿Agrega fútbol?",
+      key: "futbol",
+      title: "Pregunta 3 · ¿Quiere Fútbol Uruguayo?",
       answers: [
         { text: "Sí", value: "si" },
         { text: "No", value: "no" },
@@ -26,42 +46,30 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       key: "plan",
-      question: "4. ¿Qué plan elige?",
+      title: "Pregunta 4 · ¿Qué plan desea?",
       answers: [
-        { text: "Bronce", value: "bronce" },
-        { text: "Plata", value: "plata" },
-        { text: "Oro", value: "oro" },
+        { text: "Plata HD — $990 (1 deco)", value: "plata" },
+        { text: "Plata HD Promo J — $890 (1 deco)", value: "plata_promo_j" },
+        { text: "Oro HD — $1190 (1 deco)", value: "oro" },
       ],
     },
     {
       key: "decos",
-      question: "5. ¿Cuántos decos extra necesita?",
+      title: "Pregunta 5 · ¿Cuántos decodificadores quiere?",
       answers: [
-        { text: "0 decos extra", value: "0" },
-        { text: "1 deco extra", value: "1" },
-        { text: "2 decos extra", value: "2" },
-        { text: "3 decos extra", value: "3" },
+        { text: "1", value: "1", hint: `Sin extra por deco` },
+        { text: "2", value: "2", hint: `+$${EXTRA_DECO}/mes` },
+        { text: "3", value: "3", hint: `+$${EXTRA_DECO * 2}/mes` },
+        { text: "4", value: "4", hint: `+$${EXTRA_DECO * 3}/mes` },
       ],
+      footer: `Extras: +$${EXTRA_DECO}/mes desde el 2º deco · Fútbol +$${FUTBOL_MENSUAL}/mes.`,
     },
   ];
-
-  const PRICES = {
-    installationNew: 4500,
-    installationExisting: 2500,
-    goBoxInstallation: 1200,
-    footballMonthly: 3200,
-    extraDecoMonthly: 900,
-    planMonthly: {
-      bronce: 5200,
-      plata: 7200,
-      oro: 9800,
-    },
-  };
 
   const startCalcBtn = document.getElementById("startCalcBtn");
   const calcIntro = document.getElementById("calcIntro");
   const calcStepper = document.getElementById("calcStepper");
-  const calcQuestionCounter = document.getElementById("calcQuestionCounter");
+  const calcStepLabel = document.getElementById("calcStepLabel");
   const calcProgressPercent = document.getElementById("calcProgressPercent");
   const calcProgressFill = document.getElementById("calcProgressFill");
   const calcQuestionTitle = document.getElementById("calcQuestionTitle");
@@ -70,11 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevCalcBtn = document.getElementById("prevCalcBtn");
   const calcError = document.getElementById("calcError");
   const calcCard = document.getElementById("calcCard");
-  const calcResult = document.getElementById("calcResult");
-  const restartCalcBtn = document.getElementById("restartCalcBtn");
-  const installationCost = document.getElementById("installationCost");
-  const monthlyCost = document.getElementById("monthlyCost");
-  const resultBreakdownList = document.getElementById("resultBreakdownList");
+
+  const resultModal = document.getElementById("resultModal");
+  const resultBackdrop = resultModal?.querySelector(".result-backdrop");
+  const resultContent = document.getElementById("resultContent");
+  const resultCloseButtons = document.querySelectorAll(".result-close-btn");
+  const resetQuizBtn = document.getElementById("resetQuizBtn");
 
   const accordionItems = document.querySelectorAll(".h-accordion-item");
 
@@ -93,18 +102,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameTimer = document.getElementById("gameTimer");
   const gameResult = document.getElementById("gameResult");
 
-  let currentCalcIndex = 0;
-  let selectedCalcAnswer = null;
-  let calcAnswers = {};
+  let quiz = {
+    tipo: null,
+    gobox: null,
+    futbol: null,
+    plan: null,
+    decos: null,
+  };
+
+  let step = 0;
+  let selectedAnswer = null;
 
   let score = 0;
   let timeLeft = 10;
   let gameInterval = null;
   let gameRunning = false;
-
-  function formatCurrency(value) {
-    return `$${value.toLocaleString("es-UY")}`;
-  }
 
   function lockBodyScroll() {
     document.body.style.overflow = "hidden";
@@ -112,63 +124,85 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function unlockBodyScroll() {
     const featureOpen = featureOverlay && !featureOverlay.classList.contains("hidden");
-    if (!featureOpen) {
+    const resultOpen = resultModal && !resultModal.classList.contains("hidden");
+    if (!featureOpen && !resultOpen) {
       document.body.style.overflow = "";
     }
   }
 
-  function startCalculator() {
-    currentCalcIndex = 0;
-    selectedCalcAnswer = null;
-    calcAnswers = {};
-    calcError?.classList.add("hidden");
-    calcIntro?.classList.add("hidden");
-    calcResult?.classList.add("hidden");
-    calcStepper?.classList.remove("hidden");
-    renderCalcQuestion();
+  function setErr(show, msg) {
+    if (!calcError) return;
+    calcError.querySelector("span").textContent =
+      msg || "Elegí una opción para continuar.";
+    calcError.classList.toggle("hidden", !show);
   }
 
-  function updateCalcProgress() {
-    const currentStep = currentCalcIndex + 1;
-    const progress = Math.round((currentStep / calcData.length) * 100);
+  function updateProgress() {
+    const currentStep = step + 1;
+    const total = screens.length;
+    const progress = Math.round((currentStep / total) * 100);
 
-    calcQuestionCounter.textContent = `Paso ${currentStep} de ${calcData.length}`;
+    calcStepLabel.textContent = `Paso ${currentStep}`;
     calcProgressPercent.textContent = `${progress}%`;
     calcProgressFill.style.width = `${progress}%`;
   }
 
-  function updateCalcButtons() {
-    prevCalcBtn.classList.toggle("hidden", currentCalcIndex === 0);
+  function updateButtons() {
+    prevCalcBtn.classList.toggle("hidden", step === 0);
     const nextLabel = nextCalcBtn.querySelector("span");
-    nextLabel.textContent =
-      currentCalcIndex === calcData.length - 1 ? "Ver resultado" : "Siguiente";
+    nextLabel.textContent = step < screens.length - 1 ? "Siguiente" : "Ver resultado";
   }
 
-  function renderCalcQuestion() {
-    const currentQuestion = calcData[currentCalcIndex];
-    selectedCalcAnswer = calcAnswers[currentQuestion.key] || null;
+  function renderQuiz() {
+    const current = screens[step];
+    selectedAnswer = quiz[current.key];
 
     calcCard.classList.add("animating");
 
     window.setTimeout(() => {
-      updateCalcProgress();
-      updateCalcButtons();
-      calcQuestionTitle.textContent = currentQuestion.question;
+      updateProgress();
+      updateButtons();
+      calcQuestionTitle.textContent = current.title;
       calcAnswersContainer.innerHTML = "";
 
-      currentQuestion.answers.forEach((answer) => {
+      current.answers.forEach((answer) => {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "answer-option";
-        button.textContent = answer.text;
 
-        if (selectedCalcAnswer === answer.value) {
+        const title = document.createElement("span");
+        title.textContent = answer.text;
+        button.appendChild(title);
+
+        if (answer.hint) {
+          const hint = document.createElement("small");
+          hint.textContent = answer.hint;
+          button.appendChild(hint);
+        }
+
+        const normalizedValue =
+          current.key === "gobox" || current.key === "futbol"
+            ? selectedAnswer === true
+              ? "si"
+              : selectedAnswer === false
+              ? "no"
+              : null
+            : String(selectedAnswer);
+
+        if (normalizedValue === answer.value) {
           button.classList.add("selected");
         }
 
         button.addEventListener("click", () => {
-          selectedCalcAnswer = answer.value;
-          calcError.classList.add("hidden");
+          if (current.key === "gobox" || current.key === "futbol") {
+            selectedAnswer = answer.value === "si";
+          } else if (current.key === "decos") {
+            selectedAnswer = parseInt(answer.value, 10);
+          } else {
+            selectedAnswer = answer.value;
+          }
+
+          setErr(false);
 
           document.querySelectorAll(".answer-option").forEach((option) => {
             option.classList.remove("selected");
@@ -180,106 +214,161 @@ document.addEventListener("DOMContentLoaded", () => {
         calcAnswersContainer.appendChild(button);
       });
 
+      if (current.footer) {
+        const footer = document.createElement("p");
+        footer.className = "section-text";
+        footer.style.margin = "16px 0 0";
+        footer.textContent = current.footer;
+        calcAnswersContainer.appendChild(footer);
+      }
+
       calcCard.classList.remove("animating");
     }, 120);
   }
 
-  function calculateCosts() {
-    const installationBase =
-      calcAnswers.clientType === "nuevo"
-        ? PRICES.installationNew
-        : PRICES.installationExisting;
+  function computeResult() {
+    const tipo = quiz.tipo;
+    const decos = quiz.decos;
 
-    const goBoxInstallation =
-      calcAnswers.goBox === "si" ? PRICES.goBoxInstallation : 0;
+    let conexion = conexionBase(tipo, decos);
+    if (quiz.gobox === true) {
+      conexion += conexionGoBoxExtra(tipo);
+    }
 
-    const planMonthly = PRICES.planMonthly[calcAnswers.plan] || 0;
-    const footballMonthly =
-      calcAnswers.football === "si" ? PRICES.footballMonthly : 0;
+    const base = PLAN_MENSUAL[quiz.plan] ?? 0;
+    const extras = Math.max(0, decos - 1) * EXTRA_DECO;
 
-    const decoCount = Number(calcAnswers.decos || 0);
-    const extraDecosMonthly = decoCount * PRICES.extraDecoMonthly;
+    let mensual = base + extras;
+    if (quiz.futbol === true) {
+      mensual += FUTBOL_MENSUAL;
+    }
 
-    const totalInstallation = installationBase + goBoxInstallation;
-    const totalMonthly = planMonthly + footballMonthly + extraDecosMonthly;
+    return { conexion, mensual, base, extras };
+  }
 
-    return {
-      totalInstallation,
-      totalMonthly,
-      breakdown: [
-        `Conexión base: ${formatCurrency(installationBase)}`,
-        goBoxInstallation > 0
-          ? `GO Box en conexión: ${formatCurrency(goBoxInstallation)}`
-          : `GO Box en conexión: ${formatCurrency(0)}`,
-        `Plan ${calcAnswers.plan}: ${formatCurrency(planMonthly)}`,
-        footballMonthly > 0
-          ? `Adicional fútbol: ${formatCurrency(footballMonthly)}`
-          : `Adicional fútbol: ${formatCurrency(0)}`,
-        `Decos extra (${decoCount}): ${formatCurrency(extraDecosMonthly)}`,
-      ],
+  function openResultModal() {
+    resultModal.classList.remove("hidden");
+    lockBodyScroll();
+  }
+
+  function closeResultModal() {
+    resultModal.classList.add("hidden");
+    unlockBodyScroll();
+  }
+
+  function showResult() {
+    const { conexion, mensual, base, extras } = computeResult();
+
+    const tipoLabel = quiz.tipo === "p12" ? "P1 o P2" : "P3 o TC";
+    const planLabel =
+      quiz.plan === "plata"
+        ? "Plata HD"
+        : quiz.plan === "plata_promo_j"
+        ? "Plata HD Promo J"
+        : "Oro HD";
+
+    const goConn = quiz.gobox ? conexionGoBoxExtra(quiz.tipo) : 0;
+    const connBase = conexionBase(quiz.tipo, quiz.decos);
+    const futbolExtra = quiz.futbol ? FUTBOL_MENSUAL : 0;
+
+    resultContent.innerHTML = `
+      <div class="result-main">
+        <div class="result-box">
+          <span>Costo de conexión</span>
+          <strong>$${conexion}</strong>
+        </div>
+        <div class="result-box">
+          <span>Costo mensual</span>
+          <strong>$${mensual}</strong>
+        </div>
+      </div>
+
+      <div class="result-detail">
+        <h4>Detalle</h4>
+        <ul>
+          <li>Tipo de cliente: ${tipoLabel}</li>
+          <li>Plan: ${planLabel} (base $${base})</li>
+          <li>Decodificadores: ${quiz.decos} (extras mensual $${extras})</li>
+          <li>GO Box: ${quiz.gobox ? "Sí" : "No"} (extra conexión $${goConn})</li>
+          <li>Fútbol uruguayo: ${quiz.futbol ? "Sí" : "No"} (extra mensual $${futbolExtra})</li>
+          <li>Conexión base: $${connBase}</li>
+        </ul>
+      </div>
+    `;
+
+    openResultModal();
+  }
+
+  function resetAll() {
+    quiz = {
+      tipo: null,
+      gobox: null,
+      futbol: null,
+      plan: null,
+      decos: null,
     };
-  }
-
-  function showCalcResult() {
-    const result = calculateCosts();
-
-    installationCost.textContent = formatCurrency(result.totalInstallation);
-    monthlyCost.textContent = formatCurrency(result.totalMonthly);
-    resultBreakdownList.innerHTML = "";
-
-    result.breakdown.forEach((item) => {
-      const li = document.createElement("li");
-      li.textContent = item;
-      resultBreakdownList.appendChild(li);
-    });
-
-    calcStepper.classList.add("hidden");
-    calcResult.classList.remove("hidden");
-  }
-
-  function nextCalcQuestion() {
-    const currentQuestion = calcData[currentCalcIndex];
-
-    if (!selectedCalcAnswer) {
-      calcError.classList.remove("hidden");
-      return;
-    }
-
-    calcAnswers[currentQuestion.key] = selectedCalcAnswer;
-
-    if (currentCalcIndex < calcData.length - 1) {
-      currentCalcIndex += 1;
-      renderCalcQuestion();
-      return;
-    }
-
-    showCalcResult();
-  }
-
-  function prevCalcQuestion() {
-    if (currentCalcIndex === 0) return;
-
-    const currentQuestion = calcData[currentCalcIndex];
-    calcAnswers[currentQuestion.key] = selectedCalcAnswer;
-    currentCalcIndex -= 1;
-    renderCalcQuestion();
-    calcError.classList.add("hidden");
-  }
-
-  function resetCalculator() {
-    currentCalcIndex = 0;
-    selectedCalcAnswer = null;
-    calcAnswers = {};
-    calcError.classList.add("hidden");
-    calcResult.classList.add("hidden");
-    calcStepper.classList.add("hidden");
-    calcIntro.classList.remove("hidden");
+    step = 0;
+    selectedAnswer = null;
+    setErr(false);
     calcProgressFill.style.width = "0%";
+    calcIntro.classList.remove("hidden");
+    calcStepper.classList.add("hidden");
+    closeResultModal();
+  }
+
+  function startCalculator() {
+    calcIntro.classList.add("hidden");
+    calcStepper.classList.remove("hidden");
+    step = 0;
+    selectedAnswer = null;
+    setErr(false);
+    renderQuiz();
+  }
+
+  function nextStep() {
+    const key = screens[step].key;
+
+    if (selectedAnswer === null || selectedAnswer === undefined) {
+      setErr(true);
+      return;
+    }
+
+    quiz[key] = selectedAnswer;
+
+    if (step < screens.length - 1) {
+      step += 1;
+      renderQuiz();
+      return;
+    }
+
+    if (
+      !quiz.tipo ||
+      quiz.gobox === null ||
+      quiz.futbol === null ||
+      !quiz.plan ||
+      !quiz.decos
+    ) {
+      setErr(true, "Faltan respuestas. Volvé y completá todo.");
+      return;
+    }
+
+    showResult();
+  }
+
+  function prevStep() {
+    if (step === 0) return;
+
+    const key = screens[step].key;
+    if (selectedAnswer !== null && selectedAnswer !== undefined) {
+      quiz[key] = selectedAnswer;
+    }
+
+    step -= 1;
+    setErr(false);
+    renderQuiz();
   }
 
   function setupAccordion() {
-    if (!accordionItems.length) return;
-
     accordionItems.forEach((item) => {
       const trigger = item.querySelector(".h-accordion-trigger");
       if (!trigger) return;
@@ -299,8 +388,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function openFeatureModal(id) {
-    if (!featureOverlay) return;
-
     featureOverlay.classList.remove("hidden");
     featureModals.forEach((modal) => modal.classList.add("hidden"));
 
@@ -313,8 +400,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function closeFeatureModal() {
-    if (!featureOverlay) return;
-
     featureOverlay.classList.add("hidden");
     featureModals.forEach((modal) => modal.classList.add("hidden"));
     stopGame();
@@ -416,17 +501,29 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("keydown", (event) => {
       const isFeatureOpen =
         featureOverlay && !featureOverlay.classList.contains("hidden");
+      const isResultOpen =
+        resultModal && !resultModal.classList.contains("hidden");
 
       if (event.key === "Escape" && isFeatureOpen) {
         closeFeatureModal();
+      }
+
+      if (event.key === "Escape" && isResultOpen) {
+        closeResultModal();
       }
     });
   }
 
   startCalcBtn?.addEventListener("click", startCalculator);
-  nextCalcBtn?.addEventListener("click", nextCalcQuestion);
-  prevCalcBtn?.addEventListener("click", prevCalcQuestion);
-  restartCalcBtn?.addEventListener("click", resetCalculator);
+  nextCalcBtn?.addEventListener("click", nextStep);
+  prevCalcBtn?.addEventListener("click", prevStep);
+
+  resultCloseButtons.forEach((button) => {
+    button.addEventListener("click", closeResultModal);
+  });
+
+  resultBackdrop?.addEventListener("click", closeResultModal);
+  resetQuizBtn?.addEventListener("click", resetAll);
 
   setupAccordion();
   setupFeatureModals();
