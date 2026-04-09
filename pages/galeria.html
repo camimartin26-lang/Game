@@ -4,13 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galería</title>
+    <meta
+      name="description"
+      content="Galería de imágenes con estética neubrutalista, preview ampliado y navegación interactiva."
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
 
   <body>
-    <img src="../assets/estrella.svg" alt="" class="star-deco star-1" />
-    <img src="../assets/estrella.svg" alt="" class="star-deco star-2" />
-    <img src="../assets/planeta.svg" alt="" class="planet-deco" />
+    <img
+      src="../assets/estrella.svg"
+      alt=""
+      class="star-deco star-1"
+      aria-hidden="true"
+    />
+    <img
+      src="../assets/estrella.svg"
+      alt=""
+      class="star-deco star-2"
+      aria-hidden="true"
+    />
+    <img
+      src="../assets/planeta.svg"
+      alt=""
+      class="planet-deco"
+      aria-hidden="true"
+    />
 
     <header class="hero">
       <div class="hero-top">
@@ -29,13 +48,15 @@
 
           <div class="hero-actions">
             <a href="../index.html" class="btn-primary">← Volver al home</a>
-            <a href="#gallerySection" class="mini-btn hero-secondary">Ver imágenes</a>
+            <a href="#gallerySection" class="mini-btn hero-secondary"
+              >Ver imágenes</a
+            >
           </div>
         </div>
 
         <div class="hero-card">
           <div class="hero-card-window">
-            <div class="window-bar">
+            <div class="window-bar" aria-hidden="true">
               <span></span>
               <span></span>
               <span></span>
@@ -43,7 +64,7 @@
 
             <div class="hero-card-content">
               <div class="sticker">Gallery</div>
-              <h3>Visual moodboard</h3>
+              <h2>Visual moodboard</h2>
               <p>
                 Una grilla de imágenes con preview grande, navegación cómoda y
                 coherencia visual con el resto del sitio.
@@ -71,57 +92,112 @@
 
         <div class="gallery-grid">
           <button class="gallery-item" type="button" data-index="0">
-            <img src="../images/IMG-20260306-WA0026.jpg" alt="Imagen 1" loading="lazy" />
+            <img
+              src="../images/IMG-20260306-WA0026.jpg"
+              alt="Imagen 1"
+              loading="lazy"
+            />
           </button>
 
           <button class="gallery-item" type="button" data-index="1">
-            <img src="../images/IMG-20260408-WA0000.jpg" alt="Imagen 2" loading="lazy" />
+            <img
+              src="../images/IMG-20260408-WA0000.jpg"
+              alt="Imagen 2"
+              loading="lazy"
+            />
           </button>
 
           <button class="gallery-item" type="button" data-index="2">
-            <img src="../images/IMG-20260408-WA0001.jpg" alt="Imagen 3" loading="lazy" />
+            <img
+              src="../images/IMG-20260408-WA0001.jpg"
+              alt="Imagen 3"
+              loading="lazy"
+            />
           </button>
 
           <button class="gallery-item" type="button" data-index="3">
-            <img src="../images/IMG-20260408-WA0002.jpg" alt="Imagen 4" loading="lazy" />
+            <img
+              src="../images/IMG-20260408-WA0002.jpg"
+              alt="Imagen 4"
+              loading="lazy"
+            />
           </button>
 
           <button class="gallery-item" type="button" data-index="4">
-            <img src="../images/IMG-20260408-WA0003.jpg" alt="Imagen 5" loading="lazy" />
+            <img
+              src="../images/IMG-20260408-WA0003.jpg"
+              alt="Imagen 5"
+              loading="lazy"
+            />
           </button>
 
           <button class="gallery-item" type="button" data-index="5">
-            <img src="../images/IMG-20260408-WA0004.jpg" alt="Imagen 6" loading="lazy" />
+            <img
+              src="../images/IMG-20260408-WA0004.jpg"
+              alt="Imagen 6"
+              loading="lazy"
+            />
           </button>
 
           <button class="gallery-item" type="button" data-index="6">
-            <img src="../images/IMG-20260408-WA0005.jpg" alt="Imagen 7" loading="lazy" />
+            <img
+              src="../images/IMG-20260408-WA0005.jpg"
+              alt="Imagen 7"
+              loading="lazy"
+            />
           </button>
 
           <button class="gallery-item" type="button" data-index="7">
-            <img src="../images/IMG-20260408-WA0006.jpg" alt="Imagen 8" loading="lazy" />
+            <img
+              src="../images/IMG-20260408-WA0006.jpg"
+              alt="Imagen 8"
+              loading="lazy"
+            />
           </button>
 
           <button class="gallery-item" type="button" data-index="8">
-            <img src="../images/IMG-20260408-WA0007.jpg" alt="Imagen 9" loading="lazy" />
+            <img
+              src="../images/IMG-20260408-WA0007.jpg"
+              alt="Imagen 9"
+              loading="lazy"
+            />
           </button>
 
           <button class="gallery-item" type="button" data-index="9">
-            <img src="../images/IMG-20260408-WA0008.jpg" alt="Imagen 10" loading="lazy" />
+            <img
+              src="../images/IMG-20260408-WA0008.jpg"
+              alt="Imagen 10"
+              loading="lazy"
+            />
           </button>
 
           <button class="gallery-item" type="button" data-index="10">
-            <img src="../images/IMG-20260408-WA0009.jpg" alt="Imagen 11" loading="lazy" />
+            <img
+              src="../images/IMG-20260408-WA0009.jpg"
+              alt="Imagen 11"
+              loading="lazy"
+            />
           </button>
         </div>
       </section>
     </main>
 
-    <div id="galleryModal" class="gallery-modal hidden">
+    <div
+      id="galleryModal"
+      class="gallery-modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Vista ampliada de imagen"
+    >
       <div id="galleryBackdrop" class="gallery-backdrop"></div>
 
       <div class="gallery-modal-card">
-        <button id="closeGalleryModal" class="modal-close" aria-label="Cerrar">
+        <button
+          id="closeGalleryModal"
+          class="modal-close"
+          type="button"
+          aria-label="Cerrar"
+        >
           ×
         </button>
 
@@ -131,7 +207,12 @@
         </div>
 
         <div class="gallery-viewer">
-          <button id="prevImageBtn" class="gallery-nav gallery-prev" aria-label="Anterior">
+          <button
+            id="prevImageBtn"
+            class="gallery-nav gallery-prev"
+            type="button"
+            aria-label="Anterior"
+          >
             ←
           </button>
 
@@ -144,99 +225,120 @@
             />
           </div>
 
-          <button id="nextImageBtn" class="gallery-nav gallery-next" aria-label="Siguiente">
+          <button
+            id="nextImageBtn"
+            class="gallery-nav gallery-next"
+            type="button"
+            aria-label="Siguiente"
+          >
             →
           </button>
         </div>
 
         <div class="modal-actions gallery-actions">
-          <button id="closeGalleryBottom" class="mini-btn">Cerrar</button>
-          <a href="../index.html" class="mini-btn hero-gallery-btn">Volver al home</a>
+          <button id="closeGalleryBottom" class="mini-btn" type="button">
+            Cerrar
+          </button>
+          <a href="../index.html" class="mini-btn hero-gallery-btn"
+            >Volver al home</a
+          >
         </div>
       </div>
     </div>
 
     <script>
-      const galleryImages = [
-        "../images/IMG-20260306-WA0026.jpg",
-        "../images/IMG-20260408-WA0000.jpg",
-        "../images/IMG-20260408-WA0001.jpg",
-        "../images/IMG-20260408-WA0002.jpg",
-        "../images/IMG-20260408-WA0003.jpg",
-        "../images/IMG-20260408-WA0004.jpg",
-        "../images/IMG-20260408-WA0005.jpg",
-        "../images/IMG-20260408-WA0006.jpg",
-        "../images/IMG-20260408-WA0007.jpg",
-        "../images/IMG-20260408-WA0008.jpg",
-        "../images/IMG-20260408-WA0009.jpg"
-      ];
+      document.addEventListener("DOMContentLoaded", () => {
+        const galleryImages = [
+          "../images/IMG-20260306-WA0026.jpg",
+          "../images/IMG-20260408-WA0000.jpg",
+          "../images/IMG-20260408-WA0001.jpg",
+          "../images/IMG-20260408-WA0002.jpg",
+          "../images/IMG-20260408-WA0003.jpg",
+          "../images/IMG-20260408-WA0004.jpg",
+          "../images/IMG-20260408-WA0005.jpg",
+          "../images/IMG-20260408-WA0006.jpg",
+          "../images/IMG-20260408-WA0007.jpg",
+          "../images/IMG-20260408-WA0008.jpg",
+          "../images/IMG-20260408-WA0009.jpg",
+        ];
 
-      const galleryItems = document.querySelectorAll(".gallery-item");
-      const galleryModal = document.getElementById("galleryModal");
-      const galleryBackdrop = document.getElementById("galleryBackdrop");
-      const modalImage = document.getElementById("modalImage");
-      const galleryCounter = document.getElementById("galleryCounter");
-      const closeGalleryModal = document.getElementById("closeGalleryModal");
-      const closeGalleryBottom = document.getElementById("closeGalleryBottom");
-      const prevImageBtn = document.getElementById("prevImageBtn");
-      const nextImageBtn = document.getElementById("nextImageBtn");
+        const galleryItems = document.querySelectorAll(".gallery-item");
+        const galleryModal = document.getElementById("galleryModal");
+        const galleryBackdrop = document.getElementById("galleryBackdrop");
+        const modalImage = document.getElementById("modalImage");
+        const galleryCounter = document.getElementById("galleryCounter");
+        const closeGalleryModal = document.getElementById("closeGalleryModal");
+        const closeGalleryBottom = document.getElementById("closeGalleryBottom");
+        const prevImageBtn = document.getElementById("prevImageBtn");
+        const nextImageBtn = document.getElementById("nextImageBtn");
 
-      let currentImageIndex = 0;
+        let currentImageIndex = 0;
 
-      function updateGalleryModal() {
-        modalImage.classList.add("is-changing");
+        function lockBodyScroll() {
+          document.body.style.overflow = "hidden";
+        }
 
-        setTimeout(() => {
-          modalImage.src = galleryImages[currentImageIndex];
-          modalImage.alt = `Imagen ${currentImageIndex + 1}`;
-          galleryCounter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
-          modalImage.classList.remove("is-changing");
-        }, 120);
-      }
+        function unlockBodyScroll() {
+          document.body.style.overflow = "";
+        }
 
-      function openGalleryModal(index) {
-        currentImageIndex = index;
-        galleryModal.classList.remove("hidden");
-        document.body.style.overflow = "hidden";
-        updateGalleryModal();
-      }
+        function updateGalleryModal() {
+          if (!modalImage || !galleryCounter) return;
 
-      function closeGallery() {
-        galleryModal.classList.add("hidden");
-        document.body.style.overflow = "";
-      }
+          modalImage.classList.add("is-changing");
 
-      function showNextImage() {
-        currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-        updateGalleryModal();
-      }
+          window.setTimeout(() => {
+            modalImage.src = galleryImages[currentImageIndex];
+            modalImage.alt = `Imagen ${currentImageIndex + 1}`;
+            galleryCounter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+            modalImage.classList.remove("is-changing");
+          }, 120);
+        }
 
-      function showPrevImage() {
-        currentImageIndex =
-          (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
-        updateGalleryModal();
-      }
+        function openGalleryModal(index) {
+          currentImageIndex = index;
+          galleryModal.classList.remove("hidden");
+          lockBodyScroll();
+          updateGalleryModal();
+        }
 
-      galleryItems.forEach((item) => {
-        item.addEventListener("click", () => {
-          const index = Number(item.dataset.index);
-          openGalleryModal(index);
+        function closeGallery() {
+          galleryModal.classList.add("hidden");
+          unlockBodyScroll();
+        }
+
+        function showNextImage() {
+          currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+          updateGalleryModal();
+        }
+
+        function showPrevImage() {
+          currentImageIndex =
+            (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+          updateGalleryModal();
+        }
+
+        galleryItems.forEach((item) => {
+          item.addEventListener("click", () => {
+            const index = Number(item.dataset.index);
+            openGalleryModal(index);
+          });
         });
-      });
 
-      closeGalleryModal.addEventListener("click", closeGallery);
-      closeGalleryBottom.addEventListener("click", closeGallery);
-      galleryBackdrop.addEventListener("click", closeGallery);
-      nextImageBtn.addEventListener("click", showNextImage);
-      prevImageBtn.addEventListener("click", showPrevImage);
+        closeGalleryModal?.addEventListener("click", closeGallery);
+        closeGalleryBottom?.addEventListener("click", closeGallery);
+        galleryBackdrop?.addEventListener("click", closeGallery);
+        nextImageBtn?.addEventListener("click", showNextImage);
+        prevImageBtn?.addEventListener("click", showPrevImage);
 
-      document.addEventListener("keydown", (event) => {
-        const modalOpen = !galleryModal.classList.contains("hidden");
-        if (!modalOpen) return;
+        document.addEventListener("keydown", (event) => {
+          const modalOpen = !galleryModal.classList.contains("hidden");
+          if (!modalOpen) return;
 
-        if (event.key === "Escape") closeGallery();
-        if (event.key === "ArrowRight") showNextImage();
-        if (event.key === "ArrowLeft") showPrevImage();
+          if (event.key === "Escape") closeGallery();
+          if (event.key === "ArrowRight") showNextImage();
+          if (event.key === "ArrowLeft") showPrevImage();
+        });
       });
     </script>
   </body>
