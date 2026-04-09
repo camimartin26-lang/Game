@@ -4,13 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Neubrutalismo UI</title>
+    <meta
+      name="description"
+      content="Landing page interactiva con quiz, cards verticales, acordeón horizontal, mini juego y galería visual."
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
-    <img src="assets/estrella.svg" alt="" class="star-deco star-1" />
-    <img src="assets/estrella.svg" alt="" class="star-deco star-2" />
-    <img src="assets/planeta.svg" alt="" class="planet-deco" />
+    <img
+      src="assets/estrella.svg"
+      alt=""
+      class="star-deco star-1"
+      aria-hidden="true"
+    />
+    <img
+      src="assets/estrella.svg"
+      alt=""
+      class="star-deco star-2"
+      aria-hidden="true"
+    />
+    <img
+      src="assets/planeta.svg"
+      alt=""
+      class="planet-deco"
+      aria-hidden="true"
+    />
 
     <header class="hero">
       <div class="hero-top">
@@ -29,14 +48,18 @@
 
           <div class="hero-actions">
             <a href="#quiz" class="btn-primary">Ver quiz</a>
-            <a href="#features" class="mini-btn hero-secondary">Explorar layout</a>
-            <a href="pages/galeria.html" class="mini-btn hero-gallery-btn">Galería</a>
+            <a href="#features" class="mini-btn hero-secondary"
+              >Explorar layout</a
+            >
+            <a href="pages/galeria.html" class="mini-btn hero-gallery-btn"
+              >Galería</a
+            >
           </div>
         </div>
 
         <div class="hero-card">
           <div class="hero-card-window">
-            <div class="window-bar">
+            <div class="window-bar" aria-hidden="true">
               <span></span>
               <span></span>
               <span></span>
@@ -44,13 +67,13 @@
 
             <div class="hero-card-content">
               <div class="sticker">UI</div>
-              <h3>Creative interface system</h3>
+              <h2>Creative interface system</h2>
               <p>
                 Bordes negros, bloques fuertes, tipografía bold y mucha
                 personalidad visual.
               </p>
 
-              <div class="mini-pills">
+              <div class="mini-pills" aria-label="Características">
                 <span>Quiz</span>
                 <span>Cards</span>
                 <span>Accordion</span>
@@ -67,9 +90,7 @@
       <section id="quiz" class="panel section quiz-section">
         <div class="section-tag">01</div>
         <h2>Quick Quiz</h2>
-        <p class="section-text">
-          Descubrí qué estilo visual conecta más con vos.
-        </p>
+        <p class="section-text">Descubrí qué estilo visual conecta más con vos.</p>
 
         <div class="quiz-shell">
           <div id="quizIntro" class="quiz-intro">
@@ -80,8 +101,13 @@
             </p>
 
             <div class="quiz-intro-actions">
-              <button id="startQuizBtn" class="btn-primary start-btn">
-                <img src="assets/play.svg" alt="" class="icon-play" />
+              <button id="startQuizBtn" class="btn-primary start-btn" type="button">
+                <img
+                  src="assets/play.svg"
+                  alt=""
+                  class="icon-play"
+                  aria-hidden="true"
+                />
                 <span>Empezar quiz</span>
               </button>
 
@@ -91,14 +117,18 @@
             </div>
           </div>
 
-          <div id="quizStepper" class="quiz-stepper hidden">
+          <div
+            id="quizStepper"
+            class="quiz-stepper hidden"
+            aria-live="polite"
+          >
             <div class="quiz-progress">
               <div class="quiz-progress-top">
                 <span id="questionCounter">Pregunta 1 de 3</span>
                 <span id="progressPercent">33%</span>
               </div>
 
-              <div class="progress-bar">
+              <div class="progress-bar" aria-hidden="true">
                 <div id="progressFill" class="progress-fill"></div>
               </div>
             </div>
@@ -107,20 +137,34 @@
               <h3 id="questionTitle"></h3>
               <div id="answersContainer" class="answers-container"></div>
 
-              <p id="quizError" class="quiz-error hidden">
-                <img src="assets/rayo.svg" alt="" class="icon-ray" />
+              <p id="quizError" class="quiz-error hidden" role="alert">
+                <img
+                  src="assets/rayo.svg"
+                  alt=""
+                  class="icon-ray"
+                  aria-hidden="true"
+                />
                 <span>Elegí una opción antes de continuar.</span>
               </p>
             </div>
 
             <div class="quiz-actions">
-              <button id="prevQuestionBtn" class="mini-btn secondary-btn hidden">
+              <button
+                id="prevQuestionBtn"
+                class="mini-btn secondary-btn hidden"
+                type="button"
+              >
                 Anterior
               </button>
 
-              <button id="nextQuestionBtn" class="btn-primary next-btn">
+              <button id="nextQuestionBtn" class="btn-primary next-btn" type="button">
                 <span>Siguiente</span>
-                <img src="assets/flecha.svg" alt="" class="icon-arrow" />
+                <img
+                  src="assets/flecha.svg"
+                  alt=""
+                  class="icon-arrow"
+                  aria-hidden="true"
+                />
               </button>
             </div>
           </div>
@@ -137,77 +181,125 @@
 
         <div class="vertical-cards">
           <article class="v-card">
-            <img src="assets/blob.svg" alt="" class="blob-bg" />
-            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-1" />
+            <img
+              src="assets/blob.svg"
+              alt=""
+              class="blob-bg"
+              aria-hidden="true"
+            />
+            <img
+              src="assets/estrella.svg"
+              alt=""
+              class="mini-star mini-star-1"
+              aria-hidden="true"
+            />
 
             <div class="v-card-top">
               <span class="card-badge">Brand</span>
-              <div class="v-card-icon">✦</div>
+              <div class="v-card-icon" aria-hidden="true">✦</div>
             </div>
 
             <h3>Branding</h3>
-            <p>
-              Pop up con título, texto e imagen principal.
-            </p>
+            <p>Pop up con título, texto e imagen principal.</p>
 
-            <button class="mini-btn feature-open-btn" data-modal="featureA">
+            <button
+              class="mini-btn feature-open-btn"
+              data-modal="featureA"
+              type="button"
+            >
               Explorar
             </button>
           </article>
 
           <article class="v-card">
-            <img src="assets/blob.svg" alt="" class="blob-bg" />
-            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-2" />
+            <img
+              src="assets/blob.svg"
+              alt=""
+              class="blob-bg"
+              aria-hidden="true"
+            />
+            <img
+              src="assets/estrella.svg"
+              alt=""
+              class="mini-star mini-star-2"
+              aria-hidden="true"
+            />
 
             <div class="v-card-top">
               <span class="card-badge">UI</span>
-              <div class="v-card-icon">☻</div>
+              <div class="v-card-icon" aria-hidden="true">☻</div>
             </div>
 
             <h3>UI Design</h3>
-            <p>
-              Pop up con texto y acordeón expandible.
-            </p>
+            <p>Pop up con texto y acordeón expandible.</p>
 
-            <button class="mini-btn feature-open-btn" data-modal="featureB">
+            <button
+              class="mini-btn feature-open-btn"
+              data-modal="featureB"
+              type="button"
+            >
               Explorar
             </button>
           </article>
 
           <article class="v-card">
-            <img src="assets/blob.svg" alt="" class="blob-bg" />
-            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-3" />
+            <img
+              src="assets/blob.svg"
+              alt=""
+              class="blob-bg"
+              aria-hidden="true"
+            />
+            <img
+              src="assets/estrella.svg"
+              alt=""
+              class="mini-star mini-star-3"
+              aria-hidden="true"
+            />
 
             <div class="v-card-top">
               <span class="card-badge">Game</span>
-              <div class="v-card-icon">⚡</div>
+              <div class="v-card-icon" aria-hidden="true">⚡</div>
             </div>
 
             <h3>Mini Juego</h3>
-            <p>
-              Pop up con un minijuego hecho en JavaScript.
-            </p>
+            <p>Pop up con un minijuego hecho en JavaScript.</p>
 
-            <button class="mini-btn feature-open-btn" data-modal="featureC">
+            <button
+              class="mini-btn feature-open-btn"
+              data-modal="featureC"
+              type="button"
+            >
               Explorar
             </button>
           </article>
 
           <article class="v-card">
-            <img src="assets/blob.svg" alt="" class="blob-bg" />
-            <img src="assets/estrella.svg" alt="" class="mini-star mini-star-4" />
+            <img
+              src="assets/blob.svg"
+              alt=""
+              class="blob-bg"
+              aria-hidden="true"
+            />
+            <img
+              src="assets/estrella.svg"
+              alt=""
+              class="mini-star mini-star-4"
+              aria-hidden="true"
+            />
 
             <div class="v-card-top">
               <span class="card-badge">Gallery</span>
-              <div class="v-card-icon">★</div>
+              <div class="v-card-icon" aria-hidden="true">★</div>
             </div>
 
             <h3>Mini Galería</h3>
-            <p>
-              Pop up con una mini galería de imágenes navegable.
-            </p>
+            <p>Pop up con una mini galería de imágenes navegable.</p>
 
-            <button class="mini-btn feature-open-btn" data-modal="featureD">
+            <button
+              class="mini-btn feature-open-btn"
+              data-modal="featureD"
+              type="button"
+            >
               Explorar
             </button>
           </article>
@@ -219,7 +311,8 @@
         <div class="section-tag">03</div>
         <h2>Acordeón horizontal</h2>
         <p class="section-text">
-          Paneles que se expanden de forma fluida y en mobile pasan a formato vertical.
+          Paneles que se expanden de forma fluida y en mobile pasan a formato
+          vertical.
         </p>
 
         <div class="horizontal-accordion" id="horizontalAccordion">
@@ -227,7 +320,12 @@
             <button class="h-accordion-trigger" type="button">
               <span class="h-accordion-number">01</span>
               <span class="h-accordion-label">Concepto</span>
-              <img src="assets/flecha.svg" alt="" class="accordion-arrow" />
+              <img
+                src="assets/flecha.svg"
+                alt=""
+                class="accordion-arrow"
+                aria-hidden="true"
+              />
             </button>
 
             <div class="h-accordion-panel">
@@ -235,8 +333,8 @@
                 <span class="panel-pill">Base visual</span>
                 <h3>Qué hace especial al neubrutalismo</h3>
                 <p>
-                  Mezcla colores fuertes, bordes negros, bloques grandes y una estética
-                  simple pero con muchísimo carácter.
+                  Mezcla colores fuertes, bordes negros, bloques grandes y una
+                  estética simple pero con muchísimo carácter.
                 </p>
               </div>
             </div>
@@ -246,7 +344,12 @@
             <button class="h-accordion-trigger" type="button">
               <span class="h-accordion-number">02</span>
               <span class="h-accordion-label">Paleta</span>
-              <img src="assets/flecha.svg" alt="" class="accordion-arrow" />
+              <img
+                src="assets/flecha.svg"
+                alt=""
+                class="accordion-arrow"
+                aria-hidden="true"
+              />
             </button>
 
             <div class="h-accordion-panel">
@@ -254,8 +357,8 @@
                 <span class="panel-pill">Color system</span>
                 <h3>Colores con contraste inmediato</h3>
                 <p>
-                  Amarillo, rosa, turquesa, lila y blanco ayudan a construir una interfaz
-                  con presencia y ritmo visual muy rápido.
+                  Amarillo, rosa, turquesa, lila y blanco ayudan a construir una
+                  interfaz con presencia y ritmo visual muy rápido.
                 </p>
               </div>
             </div>
@@ -265,7 +368,12 @@
             <button class="h-accordion-trigger" type="button">
               <span class="h-accordion-number">03</span>
               <span class="h-accordion-label">Uso ideal</span>
-              <img src="assets/flecha.svg" alt="" class="accordion-arrow" />
+              <img
+                src="assets/flecha.svg"
+                alt=""
+                class="accordion-arrow"
+                aria-hidden="true"
+              />
             </button>
 
             <div class="h-accordion-panel">
@@ -273,8 +381,9 @@
                 <span class="panel-pill">Best fit</span>
                 <h3>Cuándo usar este estilo</h3>
                 <p>
-                  Funciona muy bien para portfolios, productos creativos, landings visuales
-                  y marcas que quieren verse distintas y memorables.
+                  Funciona muy bien para portfolios, productos creativos,
+                  landings visuales y marcas que quieren verse distintas y
+                  memorables.
                 </p>
               </div>
             </div>
@@ -284,11 +393,22 @@
     </main>
 
     <!-- MODAL QUIZ -->
-    <div id="quizModal" class="modal hidden">
+    <div
+      id="quizModal"
+      class="modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalResultTitle"
+    >
       <div id="modalBackdrop" class="modal-backdrop"></div>
 
       <div class="modal-card">
-        <button id="closeModalBtn" class="modal-close" aria-label="Cerrar">
+        <button
+          id="closeModalBtn"
+          class="modal-close"
+          type="button"
+          aria-label="Cerrar"
+        >
           ×
         </button>
 
@@ -297,21 +417,35 @@
         <p id="modalResultText"></p>
 
         <div class="modal-actions">
-          <button id="restartQuizBtn" class="btn-primary">
+          <button id="restartQuizBtn" class="btn-primary" type="button">
             Empezar de nuevo
           </button>
-          <button id="closeResultBtn" class="mini-btn">Cerrar</button>
+          <button id="closeResultBtn" class="mini-btn" type="button">
+            Cerrar
+          </button>
         </div>
       </div>
     </div>
 
     <!-- MODAL FEATURES -->
-    <div id="featureOverlay" class="modal hidden">
+    <div
+      id="featureOverlay"
+      class="modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Experiencias interactivas"
+    >
       <div class="modal-backdrop feature-backdrop"></div>
 
       <!-- A -->
       <div class="feature-modal hidden" id="featureA">
-        <button class="modal-close feature-close-btn" aria-label="Cerrar">×</button>
+        <button
+          class="modal-close feature-close-btn"
+          type="button"
+          aria-label="Cerrar"
+        >
+          ×
+        </button>
         <div class="modal-badge">Branding</div>
         <h3>Identidad con impacto</h3>
         <p>
@@ -320,17 +454,23 @@
         </p>
         <img
           src="images/IMG-20260408-WA0000.jpg"
-          alt="Imagen branding"
+          alt="Composición visual de branding"
           class="feature-image"
         />
         <div class="modal-actions">
-          <button class="mini-btn feature-close-btn">Cerrar</button>
+          <button class="mini-btn feature-close-btn" type="button">Cerrar</button>
         </div>
       </div>
 
       <!-- B -->
       <div class="feature-modal hidden" id="featureB">
-        <button class="modal-close feature-close-btn" aria-label="Cerrar">×</button>
+        <button
+          class="modal-close feature-close-btn"
+          type="button"
+          aria-label="Cerrar"
+        >
+          ×
+        </button>
         <div class="modal-badge">UI Design</div>
         <h3>Acordeón de contenido</h3>
         <p>
@@ -344,7 +484,8 @@
               Jerarquía visual
             </button>
             <div class="inner-accordion-content">
-              El contraste entre tamaños, color y spacing define el ritmo de una interfaz.
+              El contraste entre tamaños, color y spacing define el ritmo de una
+              interfaz.
             </div>
           </div>
 
@@ -353,7 +494,8 @@
               Componentes
             </button>
             <div class="inner-accordion-content">
-              Botones, cards y badges deben sentirse parte del mismo sistema visual.
+              Botones, cards y badges deben sentirse parte del mismo sistema
+              visual.
             </div>
           </div>
 
@@ -362,24 +504,29 @@
               Usabilidad
             </button>
             <div class="inner-accordion-content">
-              Una interfaz puede ser expresiva y seguir siendo clara, usable y consistente.
+              Una interfaz puede ser expresiva y seguir siendo clara, usable y
+              consistente.
             </div>
           </div>
         </div>
 
         <div class="modal-actions">
-          <button class="mini-btn feature-close-btn">Cerrar</button>
+          <button class="mini-btn feature-close-btn" type="button">Cerrar</button>
         </div>
       </div>
 
       <!-- C -->
       <div class="feature-modal hidden" id="featureC">
-        <button class="modal-close feature-close-btn" aria-label="Cerrar">×</button>
+        <button
+          class="modal-close feature-close-btn"
+          type="button"
+          aria-label="Cerrar"
+        >
+          ×
+        </button>
         <div class="modal-badge">Mini Game</div>
         <h3>Atrapá la estrella</h3>
-        <p>
-          Tocá el botón para sumar puntos. Tenés 10 segundos.
-        </p>
+        <p>Tocá el botón para sumar puntos. Tenés 10 segundos.</p>
 
         <div class="game-panel">
           <div class="game-stats">
@@ -388,22 +535,37 @@
           </div>
 
           <div class="game-area" id="gameArea">
-            <button id="gameTarget" class="game-target hidden" type="button">★</button>
+            <button
+              id="gameTarget"
+              class="game-target hidden"
+              type="button"
+              aria-label="Objetivo del juego"
+            >
+              ★
+            </button>
           </div>
 
           <div class="game-controls">
-            <button id="startGameBtn" class="btn-primary">Empezar juego</button>
+            <button id="startGameBtn" class="btn-primary" type="button">
+              Empezar juego
+            </button>
           </div>
         </div>
 
         <div class="modal-actions">
-          <button class="mini-btn feature-close-btn">Cerrar</button>
+          <button class="mini-btn feature-close-btn" type="button">Cerrar</button>
         </div>
       </div>
 
       <!-- D -->
       <div class="feature-modal hidden" id="featureD">
-        <button class="modal-close feature-close-btn" aria-label="Cerrar">×</button>
+        <button
+          class="modal-close feature-close-btn"
+          type="button"
+          aria-label="Cerrar"
+        >
+          ×
+        </button>
         <div class="modal-badge">Mini Gallery</div>
         <h3>Preview rápido</h3>
         <p>
@@ -411,21 +573,39 @@
         </p>
 
         <div class="mini-gallery">
-          <button id="miniPrevBtn" class="gallery-nav small-nav" type="button">←</button>
+          <button
+            id="miniPrevBtn"
+            class="gallery-nav small-nav"
+            type="button"
+            aria-label="Imagen anterior"
+          >
+            ←
+          </button>
 
           <div class="mini-gallery-frame">
-            <img id="miniGalleryImage" src="images/IMG-20260408-WA0001.jpg" alt="Mini galería" />
+            <img
+              id="miniGalleryImage"
+              src="images/IMG-20260408-WA0001.jpg"
+              alt="Mini galería"
+            />
           </div>
 
-          <button id="miniNextBtn" class="gallery-nav small-nav" type="button">→</button>
+          <button
+            id="miniNextBtn"
+            class="gallery-nav small-nav"
+            type="button"
+            aria-label="Imagen siguiente"
+          >
+            →
+          </button>
         </div>
 
         <div class="modal-actions">
-          <button class="mini-btn feature-close-btn">Cerrar</button>
+          <button class="mini-btn feature-close-btn" type="button">Cerrar</button>
         </div>
       </div>
     </div>
 
     <script src="app.js"></script>
   </body>
-</html>
+  </html>
